@@ -1,0 +1,19 @@
+<div class="minicart-shadow"></div>
+<aside class="minicart" id="minicart">
+    <div class="minicart__conent">
+    </div>
+    <div class="minicart__footer">
+        <div class="minicart__subtotal">
+            <sapn>Subtotal</sapn>
+            <span class="minicart__price" id="minicart-price">$10</span>
+        </div>
+        <a href="/cart" class="button button--fluid">View shoping bag</a>
+        <a href="/checkout" class="button button--black button--fluid">Checkout</a>
+    </div>
+</aside>
+<div class="minicart__error-msg" id="minicart-error-msg">
+    You have already added the maximum possible amount of goods to the cart.
+</div>
+
+
+{% include 'minicart-items-template' %}

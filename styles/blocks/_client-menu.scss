@@ -1,0 +1,32 @@
+.client-menu {
+    display: flex;
+    padding: 0;
+    list-style-type: none;
+    justify-content: center;
+    line-height: 1;
+
+    .client-menu__item {
+        + .client-menu__item {
+            margin-left: 28px;
+        }
+    }
+
+    .client-menu__link {
+        display: inline-block;
+        font-size: 18px;
+
+        @extend .link;
+    }
+
+    .client-menu__item--active {
+        .client-menu__link {
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+
+    @include breakpoint(small) {
+        display: none;
+    }
+}

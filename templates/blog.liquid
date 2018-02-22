@@ -1,0 +1,26 @@
+{% paginate blog.articles by 4 %}
+<div class="blog">
+  <div class="small-container">
+    {% comment %}<h2 class="blog__title">{{ blog.title }}</h2>{% endcomment %}
+      {% for article in blog.articles %}
+        <article class="blog-post">
+          <div class="blog-post__content">
+            <h4 class="blog-post__title"><a href="{{ article.url }}">{{ article.title }}</a></h4>
+            <h6 class="blog-post__excerpt">{{ article.excerpt }}</h6>
+          </div>
+          <div class="blog-post__image-wrapper">
+            <a class="blog-post__image-link" href="{{ article.url }}"><img src="{{ article.image.src | img_url: 'master' }}" alt="{{ article.image.alt }}"></a>
+            {% assign secondary_img = article.metafields.custom_fields['secondary-img'] %}
+            {% if secondary_img %}
+              <a class="blog-post__image-link blog-post__image-link--secondary" href="{{ article.url }}">{{ secondary_img }}</a>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+      {% if paginate.pages >1 %}
+          {% include 'pagination' %}
+      {% endif %}
+  </div>
+</div>
+
+{% endpaginate %}

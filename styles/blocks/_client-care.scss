@@ -1,0 +1,44 @@
+.client-care {
+    .client-care__page-title,
+    .client-care__main-title {
+        text-align: center;
+        line-height: 1;
+    }
+
+    .client-care__page-title {
+        display: none;
+        letter-spacing: 1px;
+    }
+
+    .client-care__main-title {
+        margin-bottom: 35px;
+    }
+
+    @include breakpoint(medium) {
+        margin-top: 40px;
+    }
+
+
+    @include breakpoint(small) {
+
+        .client-care__page-title {
+            display: block;
+            font-size: 36px;
+        }
+
+        .client-care__main-title {
+            display: none;
+        }
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        margin-top: 20px;
+
+        .client-care__page-title {
+            font-size: 18px;
+        }
+        .client-care__main-title {
+            font-size: 14px;
+        }
+    }
+}

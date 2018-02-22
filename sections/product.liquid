@@ -1,0 +1,288 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<meta itemprop="name" content="{{ product.title }}">
+<meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+<meta itemprop="brand" content="{{ product.vendor }}">
+<meta itemprop="image" content="{{ featured_image | img_url: '600x600' }}">
+<meta itemprop="description" content="{{ product.description | strip_html | escape }}">
+
+<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+<meta itemprop="price" content="{{ product.price | divided_by: 100.00 }}">
+
+
+{% assign arrow_color = product.metafields.custom_fields["slider_arrow_color"] %}
+
+<div class="full-product">
+    <div class="full-product__inner">
+        <div class="full-product__image-col">
+            <div class="full-product__image-slider fade-slick {% if arrow_color == 'White' %}full-product__image-slider--white-arrow{% endif %}" id="fade-slider">
+                {% for image in product.images %}
+                    <div class="full-product__image-slider-item item-{{ forloop.index }} {% if forloop.index <= 4 %}full-product__image-slider-item--first{% endif %}"
+                         data-alt="{{ image.alt | downcase }}" data-index="{{ forloop.index }}">
+                            <img class="full-product__image-slider-image"
+                             src="{{ image.src | img_url: '2000x' }}"
+                             alt="{{ image.alt | escape }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="full-product__content">
+            <div class="full-product__content-top">
+                <div class="">
+                    <div class="prod-breadcrumbs">
+                        <span class="prod-breadcrumbs__item">
+                            <a class="prod-breadcrumbs__link" href="/collections/all">Shop</a>
+                        </span> -
+                        {% assign current_collection = product.collections | first %}
+                        <span class="prod-breadcrumbs__item">
+                            <a class="prod-breadcrumbs__link" href="{{ current_collection.url }}">{{ current_collection.title }}</a>
+                        </span>
+                    </div>
+                </div>
+                <h1 class="full-product__title">{{ product.title }}</h1>
+                <div class="full-product__price">
+                    <span class="full-product__price-line">&#x2014;</span>
+                    {% if product.compare_at_price_max > product.price_max %}
+                        <span class="full-product__price-item full-product__price-item--compare">
+                            {{ product.compare_at_price_max | money }}
+                        </span>
+                        <span class="full-product__price-item" id="price">
+                            {{ current_variant.price | money }}
+                        </span>
+                    {% else %}
+                        <span class="full-product__price-item "  id="price">
+                            {{ product.price_min | money }}
+                        </span>
+                    {% endif %}
+                </div>
+                <div class="full-product__error-message full-product__error-message--mobile">
+                    {{ 'products.errors.add_to_cart_err' | t }}
+                </div>
+                <div class="full-product__info">
+                    <div class="full-product__tabs">
+                        <ul class="product-tabs" id="product-tabs">
+                            <li class="product-tabs__item">
+
+                                <span class="product-tabs__header"
+                                      data-tab-selector=".description-tab">{{ 'products.tabs.description' | t }}</span>
+                                <div class="product-tabs__content-outer  description-tab">
+                                    <div class="product-tabs__content ">{{ product.description }}</div>
+                                </div>
+                            </li>
+
+                            {% assign metafield_names = "details|shipping_and_returns" %}
+                            {% assign metafield_names = metafield_names | split: "|" %}
+
+                            {% for metafield_name in metafield_names %}
+                                {% assign value = product.metafields.custom_fields[metafield_name] %}
+                                {% if value %}
+                                    <li class="product-tabs__item">
+                                        <span class="product-tabs__header"
+                                              data-tab-selector=".{{ metafield_name }} ">{{ 'products.tabs.' | append: metafield_name | t }}</span>
+                                        <div class="product-tabs__content-outer  {{ metafield_name }}">
+                                            <div class="product-tabs__content">{{ value }}</div>
+                                        </div>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            <li class="product-tabs__item"><span class="product-tabs__header no-tab" id="chart-size-link">{{ section.settings.size_popup_link }}</span></li>
+                        </ul>
+                    </div>
+                    <div class="full-product__options">
+                        <div class="full-product__option-block" id="desktop-option">
+                            {% for option in product.options_with_values %}
+                                <div class="option">
+                                    <span class="option__title">Select {{ option.name }}</span>
+                                    {% assign option_name = option.name | downcase %}
+                                    {% if option_name  == 'color' %}
+                                        <ul class="option__list option__list--colors">
+                                            {% for value in option.values %}
+                                                {% assign value_name = value | handleize %}
+                                                <li title="{{ value }}" class="option__item option__item--{{ option.name | downcase }} bg-color-{{ value | handleize }}"
+                                                    data-value="{{ value_name }}" id="option-{{ value_name }}">
+                                                    {{ value }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <ul class="option__list" id="desktop-size">
+                                            {% for value in option.values %}
+                                                {% assign value_name = value | handleize %}
+                                                <li class="option__item option__item--{{ option.name | downcase }}" data-value="{{ value_name }}" id="option-{{ value_name }}">
+                                                    {{ value }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            <div class="option">
+                                <span class="option__title">Select Quantity</span>
+                                <div class="option-select option-select--qty">
+                                    <select class="option-select__select js-qty-select">
+                                        <option value="1" selected="selected">1</option>
+                                        {% for i in (2..10) %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="full-product__error-message full-product__error-message--desctop">
+                            {{ 'products.errors.add_to_cart_err' | t }}
+                        </div>
+                        <div class="full-product_button-row full-product__mobile-button">
+                            {% if product.available %}
+                                <button class="button button--black button--fluid  js-add-to-cart"
+                                        data-variant-id="{{ current_variant.id }}">
+                                    {{ 'products.product.add_to_cart' | t }}
+                                </button>
+                            {% else %}
+                                <button class="button button--black button--fluid" disabled
+                                        data-variant-id="{{ current_variant.id }}">
+                                    {{ 'products.product.sold_out' | t }}
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% assign num = 0 %}
+                {% for i in (1..10) %}
+                    {% assign setting_title_name = 'column_' | append: i %}
+                    {% if section.settings[setting_title_name] != '' %}
+                        {% assign num = num | plus: 1 %}
+                    {% endif %}
+
+                {% endfor %}
+                {% if num == 4 %}
+                    <style>
+                        td{
+                            width:25%;
+                        }
+                    </style>
+                {% elsif num == 5 %}
+                    <style>
+                        td{
+                            width:20%;
+                        }
+                    </style>
+                {% endif %}
+                <style>
+                    .size-table__table{
+                        min-width: {{ num | times: 90 }}px;
+                    }
+                </style>
+                <div id="product-size-popup" class="product-size-popup" style="display:none">
+                    <button class="product-size-popup__close"></button>
+                    <div class="image-wrapper">
+                        <a href="{{ section.settings.image | img_url:'master' }}" target="_blank">
+                            <img src="{{ section.settings.image | img_url:'master' }}" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="full-product__content-bottom">
+                <div class="full-product_button-row full-product__desktop-button">
+                    {% if product.available %}
+                        <button class="button  js-add-to-cart"
+                                data-variant-id="{{ current_variant.id }}">
+                            {{ 'products.product.add_to_cart' | t }}
+                        </button>
+                    {% else %}
+                        <button class="button button--disabled"  disabled
+                                data-variant-id="{{ current_variant.id }}">
+                            {{ 'products.product.sold_out' | t }}
+                        </button>
+                    {% endif %}
+                </div>
+                <div class="full-product__image-nav-slider thumbnail-line">
+                    <div class="thumbnail-line__inner" id="fade-nav-slider">
+                        {% for image in product.images %}
+                            <div class="thumbnail-line__item item-{{ forloop.index }} {% if forloop.index <= 4 %}thumbnail-line__item--first{% endif %} {% if forloop.index == 1 %}thumbnail-line__item--active{% endif %}"
+                                 data-index="{{ forloop.index }}" data-alt="{{ image.alt | downcase }}">
+                                <div class="thumbnail-line__image"
+                                     style="background-image: url({{ image.src | img_url: '300x' }})"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <section class="related-product">
+        <h3 class="related-product__title">Shop related</h3>
+        <div class="related-product__container">
+            {% assign product_handles = ' ' | append: product.handle | append: ' ' %}
+            {% assign product_counter = 0 %}
+            {% for iterator in (1..3) %}
+                {% assign field_name = 'related_product_' | append: iterator %}
+                {% assign product_handle = product.metafields.custom_fields[field_name] %}
+                {% assign the_product = all_products[product_handle] %}
+                {% if the_product != empty %}
+                    {% assign formated_product_handle = ' ' | append: product_handle |append: ' ' %}
+                    {% unless product_handles contains formated_product_handle %}
+                    {% assign product_counter = product_counter | plus: 1 %}
+                    {% assign product_handles = product_handles | append: formated_product_handle %}
+
+                    {% include 'product', the_product:the_product, modificator: 'related' %}
+                    {% endunless %}
+                {% endif %}
+            {% endfor %}
+            {% assign limit = 3 | minus: product_counter %}
+            {% assign iterator = 0 %}
+            {% assign the_collection = product.collections | first %}
+            {% unless the_collection %}
+            {% assign the_collection = collections['all-products'] %}
+            {% endunless %}
+            {% if limit != 0 %}
+                {% for the_product in the_collection.products %}
+                    {% assign formated_product_handle = ' ' | append: formated_product_handle %}
+
+                    {% if product_handles contains formated_product_handle %}
+                        {% continue %}
+                    {% endif %}
+
+                    {% include 'product', the_product: the_product, modificator: 'related' %}
+
+                    {% assign iterator = iterator | plus:1 %}
+                    {% if  iterator == limit %}
+                        {% break %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
+</div>
+
+<script>
+    var productPage = true;
+    var productOptionsNames = {{ product.options | json }};
+    var product = {{ product | json }};
+    var currentVariant = {{ current_variant | json }};
+</script>
+
+{% schema %}
+
+{
+"name": "Product",
+"settings": [
+    {
+        "type": "text",
+        "id": "size_popup_link",
+        "label": "Size popup link text",
+        "default": "View Size Chart"
+    },{
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+    }
+]
+}
+
+{% endschema %}

@@ -1,0 +1,40 @@
+<div class="search">
+    <div class="shop">
+        {% paginate search.results by 12 %}
+
+        <h1 class="search__title">
+            {% if search.performed %}
+                {% if search.results_count == 0 %}
+                    {{ 'general.search.no_results_html' | t: terms: search.terms }}
+                {% else %}
+                    {{ 'general.search.results_for_html' | t: terms: search.terms }}
+                {% endif %}
+            {% else %}
+                {{ 'general.search.blank_results' | t }}
+            {% endif %}
+        </h1>
+
+        <div class="shop__container">
+            <div class="shop__row">
+                {% if search.performed %}
+                    {% for product in search.results %}
+                        {% if product.object_type == 'product' %}
+                            <script>
+                            </script>
+                            {% include 'product_variants', the_product: product %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        {% if paginate.pages > 1 %}
+            {% include 'pagination' %}
+        {% endif %}
+
+        {% endpaginate %}
+    </div>
+</div>
+
+
+

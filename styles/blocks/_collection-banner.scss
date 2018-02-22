@@ -1,0 +1,38 @@
+.collection-banner {
+    margin-top: 120px;
+    .collection-banner__inner-wrapper {
+        position: relative;
+
+    }
+    .collection-banner__content {
+        position: absolute;
+        top: 50%;
+        right: 200px;
+        transform: translateY(-50%);
+    }
+
+    .collection-banner__large-image {
+        display: block;
+        width: 100%;
+        img {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    @include breakpoint(small) {
+        margin-top: 60px;
+        .collection-banner__content.section-header {
+            right:100px;
+            color: #fff;
+
+        }
+    }
+    @include breakpoint(mobile-landscape) {
+        .collection-banner__content.section-header {
+            right: 20px;
+            left: 20px;
+        }
+    }
+
+}

@@ -1,0 +1,27 @@
+.cart-footer{
+    margin-left:auto;
+    padding-top:60px;
+
+    .cart-footer__summary{
+        padding-top:50px;
+        padding-bottom:50px;
+        text-transform: uppercase;
+        .cart-footer__summary-item{
+            display: flex;
+            justify-content:space-between;
+        }
+    }
+
+    @include breakpoint(medium){
+        .cart-footer__summary{
+            padding-top:25px;
+            padding-bottom:25px;
+    }}
+
+    @include breakpoint(mobile-landscape){
+        padding-top:30px;
+        .cart-footer__summary {
+            font-size:14px;
+        }
+    }
+}

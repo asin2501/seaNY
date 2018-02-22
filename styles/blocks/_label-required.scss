@@ -1,0 +1,11 @@
+.label-required {
+    position: relative;
+    &::after {
+        content: "*";
+        display: inline-block;
+        vertical-align: top;
+        font-size: 15px;
+        font-weight:bold;
+        color: red;
+    }
+}

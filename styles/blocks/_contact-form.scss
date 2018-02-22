@@ -1,0 +1,148 @@
+.contact-form {
+    max-width: 500px;
+    margin-top: 70px;
+    margin-bottom: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
+
+    .contact-form__address {
+        margin-bottom: 67px;
+        font-size: 22px;
+        letter-spacing: 0.6px;
+        line-height: 1;
+        text-align: center;
+        p {
+            + p {
+                margin-top: 6px;
+            }
+        }
+    }
+
+    .contact-form__title {
+        margin-bottom: 30px;
+    }
+
+    .contact-form__link {
+        display: inline-block;
+        margin-top: 34px;
+        color: #898a8d;
+
+        @extend .link;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"] {
+            padding-left: 0;
+            padding-bottom: 14px;
+            font-family: $brandon;
+            font-size: 19px;
+            letter-spacing: 0.5px;
+
+            @include placeholder() {
+                font-size: 19px;
+                color: #231f20;
+            }
+        }
+
+        label {
+            font-family: $brandon;
+            font-size: 19px;
+            text-transform: uppercase;
+        }
+
+        .button {
+            //width: 10.4vw;
+            max-width: 250px;
+            min-width: 150px;
+            height: 44px;
+            margin-top: 40px;
+            margin-left: auto;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+    }
+
+    .input-wrapper {
+        + * {
+            margin-top: 30px;
+        }
+    }
+
+    .contact-form__textarea-label {
+        margin-top: 90px;
+        margin-bottom: 20px;
+    }
+
+    textarea {
+        height: 190px;
+    }
+
+    @include breakpoint(small) {
+        margin-top: 79px;
+        margin-bottom: 75px;
+
+        form {
+            .button {
+                width: 100%;
+                max-width: 100%;
+                margin-left: auto;
+            }
+        }
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        margin-top: 30px;
+        margin-bottom: 40px;
+
+        .contact-form__address {
+            margin-bottom: 35px;
+            font-size: 14px;
+        }
+
+        .contact-form__title {
+            font-size: 18px;
+        }
+
+        .contact-form__textarea-label {
+            margin-top: 30px;
+            margin-bottom: 6px;
+        }
+
+        form {
+
+            input[type="text"],
+            input[type="email"],
+            input[type="password"],
+            input[type="tel"] {
+                height: 36px;
+                padding-left: 0;
+                padding-bottom: 5px;
+                font-family: $brandon;
+                font-size: 14px;
+                letter-spacing: 0.5px;
+
+                @include placeholder() {
+                    font-size: 14px;
+                }
+            }
+
+            label {
+                font-size: 14px;
+            }
+        }
+
+    }
+}

@@ -1,0 +1,71 @@
+.subscribe-form {
+
+    .klaviyo_messages{
+        padding-top:10px;
+    }
+
+    .error_message{
+        color: red;
+    }
+
+    .subscribe-form__heading {
+        margin-bottom: 22px;
+        transform: translateZ(0);
+
+        p {
+            font-size: 15px;
+            line-height: 1.3;
+        }
+    }
+
+    .subscribe-form__title {
+        margin-bottom: 2px;
+        text-transform: uppercase;
+        font-family: $brandon-bold;
+        font-size: 16px;
+        line-height: 1;
+        letter-spacing: 0.4px;
+    }
+    
+    .subscribe-form__form {
+        display: flex;
+    }
+
+    input {
+        width: 100%;
+        max-width: 81%;
+        height: 53px;
+        margin-right: 7px;
+        padding-left: 15px;
+        border-radius: 0;
+
+        @include placeholder {
+            color: #231f20;
+            opacity:1;
+        }
+    }
+
+    .subscribe-form__button {
+        height: 53px;
+        width: 55px;
+        display: inline-block;
+        vertical-align: middle;
+        border: 1px solid #4c4849;
+        background-color: #fff;
+        color: #4c4849;
+        cursor: pointer;
+        -webkit-appearance: none;
+        svg {
+            width: 11px;
+            vertical-align: middle;
+        }
+    }
+
+    @include breakpoint(small) {
+        input {
+            @include placeholder() {
+                color: #000;
+            }
+        }
+    }
+}

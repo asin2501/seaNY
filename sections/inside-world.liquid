@@ -1,0 +1,64 @@
+<section class="inside-world small-container">
+    <div class="inside-world__inner-wrapper">
+        <picture class="inside-world__large-image">
+            <source srcset="{{ section.settings.main_image | img_url:'640x' }}" media="(max-width: 379px) and (min-width: 300px)">
+            <source srcset="{{ section.settings.main_image | img_url:'800x' }}" media="(max-width: 479px) and (min-width: 380px)">
+            <source srcset="{{ section.settings.main_image | img_url:'1200x' }}" media="(max-width: 650px) and (min-width: 480px)">
+            <img src="{{ section.settings.main_image | img_url:'1600x' }}" alt="">
+        </picture>
+        <div class="inside-world__small-image">
+            <div class="inside-world__content section-header">
+                <h2 class="section-header__title">{{ section.settings.title }}</h2>
+                <h6 class="section-header__subtitle">{{ section.settings.subtitle }}</h6>
+                <a  class="section-header__link" href="{{ section.settings.link_url }}">{{ section.settings.link_name }}</a>
+            </div>
+                <img src="{{ section.settings.secondary_image | img_url:'880x' }}" alt="">
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Inside World",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default":"the inside world"
+        },
+        {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Subtitle",
+            "default":"Beautifully light for layering"
+        },
+        {
+            "type": "text",
+            "id": "link_name",
+            "label": "Link name",
+            "default":"shop now"
+        },
+        {
+            "type": "url",
+            "id": "link_url",
+            "label": "Link url"
+        },
+        {
+            "type": "image_picker",
+            "id": "main_image",
+            "label": "Large image"
+        },{
+            "type": "image_picker",
+            "id": "secondary_image",
+            "label": "Small image"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Inside World",
+            "category": "Special sections"
+        }
+    ]
+}
+{% endschema %}

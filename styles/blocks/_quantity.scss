@@ -1,0 +1,48 @@
+.quantity{
+    display: flex;
+    padding-top:30px;
+
+    &--desktop{
+        @include breakpoint(small){
+            display: none;
+        }
+    }
+
+    &--mobile{
+        display: none;
+        @include breakpoint(medium){
+            display: block;
+
+            padding-top:20px;
+            padding-bottom:30px;
+            text-align: center;
+        }
+    }
+
+    &--mobile{
+    }
+
+    &__num{
+        display: inline-block;
+        width:40px;
+        border-bottom:1px solid #000;
+        margin-right:10px;
+        margin-left:10px;
+        text-align: center;
+    }
+
+    &__btn{
+        width:25px;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius:0;
+        cursor: pointer;
+        transition-property: color, background-color;
+        transition-duration: 200ms;
+
+        &:hover{
+            background-color: #000;
+            color:#fff;
+        }
+    }
+}

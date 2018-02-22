@@ -1,0 +1,43 @@
+.fade-slider {
+    position: relative;
+
+
+    .fade-slider__item {
+        position: relative;
+        display: block;
+        opacity:0;
+        transition: opacity 100ms linear 400ms;
+        z-index:1;
+
+
+
+        &.fade-slider__item--active{
+            transition: opacity 400ms linear 0ms;
+            z-index:2;
+            opacity: 1;
+        }
+
+        & + .fade-slider__item {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width:100%;
+        }
+    }
+
+    .fade-slider__image {
+        padding-top: 148.4%;
+        background-position: 50% 50%;
+        background-size: cover;
+
+    }
+
+    @include breakpoint(small){
+        .fade-slider__item {
+            opacity:1;
+            & + .fade-slider__item {
+                position: static;
+            }
+        }
+    }
+}

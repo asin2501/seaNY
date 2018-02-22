@@ -1,0 +1,136 @@
+<div class="big-container"></div>
+<footer class="footer small-container">
+
+    <div class="footer__left-block">
+        {%- assign footer_linklist = section.settings.footer_linklist -%}
+        {% if linklists[footer_linklist].links.size > 0 %}
+            <div class="footer__menu">
+                <h4 class="footer__title">{{ section.settings.footer_menu_title }}</h4>
+                <ul class="footer__menu-list">
+                    {% for link in linklists[footer_linklist].links %}
+                        <li class="footer__menu-list-item"><a class="footer__menu-list-link" href="{{ link.url }}">{{ link.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {%- assign social_accounts = 'Instagram, Twitter, Facebook, Pinterest, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+        <div class="footer__social-menu">
+            <h4 class="footer__title">{{ section.settings.footer_social_title }}</h4>
+            <ul class="social-icons-menu">
+                {% for social in social_accounts %}
+                    {%- assign social_handle = social | handleize -%}
+                    {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+                    {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+
+                    {% if settings[social_link] != blank %}
+                        <li class="social-icons-menu__item">
+                            <a class="social-icons-menu__link" href="{{ settings[social_link] }}" target="_blank"
+                               title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+                                {% include social_icon %}
+                                <span class="icon-fallback-text">{{ social }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+
+
+    <div class="footer__right-block">
+        <div class="subscribe-form">
+            <div class="subscribe-form__heading">
+                <h4 class="subscribe-form__title">{{ section.settings.form_title }}</h4>
+                <p>{{ section.settings.form_subtitle }}</p>
+            </div>
+            <form class="email_signup klaviyo_standard_embed_Nixqsd" action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank" novalidate="novalidate">
+                <div class="subscribe-form__form">
+                    <input type="hidden" name="g" value="{{ section.settings.popup_form_id }}">
+                    <input type="email" class="input" value="" name="email" id="k_id_email" placeholder="{{ section.settings.form_placeholder }}" />
+                    <button class="subscribe-form__button" type="submit">{% include 'icon-submit' %}</button>
+                </div>
+                <div class="klaviyo_messages">
+                    <div class="success_message" style="display:none;"></div>
+                    <div class="error_message" style="display:none;"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+   {% comment %}
+    <div class="footer__right-block">
+        <div class="subscribe-form">
+            <div class="subscribe-form__heading">
+                <h4 class="subscribe-form__title">{{ section.settings.form_title }}</h4>
+                <p>{{ section.settings.form_subtitle }}</p>
+            </div>
+            <form action="{{ section.settings.form_action }}">
+                <input class="input" type="email" placeholder="{{ section.settings.form_placeholder }}">
+                <button class="subscribe-form__button" type="submit">{% include 'icon-submit' %}</button>
+            </form>
+        </div>
+    </div>
+    {% endcomment %}
+
+
+
+    <div class="footer__copyright">
+        <p>&copy; {{ 'now' | date: "%Y" }} {{ 'layout.footer.copyright' | t }}</p>
+    </div>
+
+</footer>
+
+{% schema %}
+{
+    "name": "Footer",
+    "class": "footer-container",
+    "settings": [
+        {
+            "type": "link_list",
+            "id": "footer_linklist",
+            "label": "First menu",
+            "default": "footer"
+        },
+        {
+            "type": "text",
+            "id": "footer_menu_title",
+            "label": "The footer menu title",
+            "default": "Client Care"
+        },
+        {
+            "type": "text",
+            "id": "footer_social_title",
+            "label": "The footer social links title",
+            "default": "Follow Us"
+        },
+        {
+            "type": "text",
+            "id": "form_title",
+            "label": "The title",
+            "default": "Sent from Sea"
+        },
+        {
+            "type":"text",
+            "id": "form_subtitle",
+            "label": "Description",
+            "default": "By signing up, you accept the terms of our privacy policy"
+        },
+        {
+            "type": "text",
+            "id": "popup_form_id",
+            "label": "Form id"
+        },
+        {
+            "type": "text",
+            "id": "form_placeholder",
+            "label": "Text for placeholder"
+        }
+    ]
+}
+
+{% endschema %}
+

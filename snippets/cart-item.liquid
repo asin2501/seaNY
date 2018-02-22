@@ -1,0 +1,43 @@
+<script id="cart-item-template" type="text/x-handlebars-template">
+    {% raw %}
+        {{#if items}}
+        {{#each items}}
+        <div class="cart-item" id="cart-item-{{ id }}">
+            <div class="cart-item__inner">
+                <div class="cart-item__image">
+                    <a href="{{url}}">
+                        <img src="{{ image }}"
+                             alt="">
+                    </a>
+                </div>
+                <div class="cart-item__content">
+                    <h6 class="cart-item__title">
+                        <a href="{{ url }}"><div>{{ product_title }}</div></a>
+                        <div class="cart-item__price">{{ price }}</div>
+                    </h6>
+                    <div class="cart-item__item-qty">
+                        <input type="text" class="cart-item__qty-input" name="qty-{{ id }}" value="{{ quantity }}" data-item-id="{{ id }}" data-old-value="{{ quantity }}">
+                    </div>
+
+                    <ul class="cart-item__property">
+                        {{#if size}}
+                        <li class="cart-item__property-item">
+                            <span>Size</span> - <span>{{ size }}</span>
+                        </li>
+                        {{/if}}
+                        {{#if color}}
+                        <li class="cart-item__property-item">
+                            <span>Color</span> - <span>{{ color }}</span>
+                        </li>
+                        {{/if}}
+                    </ul>
+                    <a href="{{ id }}" class="cart-item__remove js-remove-cart-item">Remove</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        {{ else }}
+        <span class="cart__item">Now cart is empty</span>
+        {{/if }}
+    {% endraw %}
+</script>

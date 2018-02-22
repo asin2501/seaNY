@@ -1,0 +1,212 @@
+<div class="shop">
+    {% paginate collection.products by 12 %}
+    <div id="shop-filter" class="filter">
+        <div class="filter__header"><span class="filter__title">Filter<span class="filter__title-icon"></span></span></div>
+        <div class="filter__container">
+            <div class="filter__option">
+                <div class="filter__option-inner">
+                    <span class="filter__option-title">Size</span>
+                    <div class="text-center">
+                        <div class="coll-filter">
+                            {% for block in section.blocks %}
+                                {% if current_tags contains block.settings.size_title %}
+                                    <div class="filter__option-value" ><span class="filter__option-value-tag active" data-tag="{{ block.settings.size_title }}">{{ block.settings.size_title }}</span></div>
+                                {% else %}
+                                    <div class="filter__option-value" ><span class="filter__option-value-tag" data-tag="{{ block.settings.size_title }}">{{ block.settings.size_title }}</span></div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="filter__option">
+                {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+                <div class="filter__option-inner">
+                    <span class="filter__option-title">Price</span>
+                    <div class="text-center">
+                        <div class="input-wrapper">
+                            <input id="high-to-low" type="checkbox" data-sort="price-descending"  {% if sort_by == 'price-descending' %}checked{% endif %}>
+                            <label for="high-to-low">
+                                {{ section.settings.high_to_low }}
+                            </label>
+                        </div>
+                        <div class="input-wrapper">
+                            <input id="low-to-high" type="checkbox" data-sort="price-ascending" {% if sort_by == 'price-ascending' %}checked{% endif %}>
+                            <label for="low-to-high">
+                                {{ section.settings.low_to_high }}
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="filter__buttons">
+                <button id="reset-filter" class="button">{{ section.settings.reset_button }}</button>
+                <button id="apply-button" class="button">{{ section.settings.apply_button }}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="shop__container">
+        <div class="shop__row">
+            {% for product in collection.products %}
+
+               {% include 'product_variants', the_product: product %}
+            {% else %}
+                {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
+                    {% for i in (1..8) %}
+                        <a href="#">
+                            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+                        </a>
+
+                        <p>
+                            <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
+                        </p>
+
+                        <p>
+                            {{ 1999 | money }}
+                        </p>
+                    {% endfor %}
+                {% else %}
+                    <p>{{ 'collections.general.no_matches' | t }}</p>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    </div>
+    {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+    {% endif %}
+
+    {% endpaginate %}
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(e){
+
+        var collFilters = $('.coll-filter');
+        var $resetBtn = $('#reset-filter');
+        var $applyBtn = $('#apply-button');
+        var $hightToLow = $('#high-to-low');
+        var $lowTohigh = $('#low-to-high');
+
+        var dataSort = '';
+
+        $hightToLow.on('click', function() {
+            if ($(this).is(':checked')) {
+                dataSort = '?sort_by=' + $(this).attr('data-sort');
+                $lowTohigh.prop('checked', false);
+            } else {
+                dataSort = '';
+            }
+        });
+
+        $lowTohigh.on('click', function() {
+            if ($(this).is(':checked')) {
+                dataSort = '?sort_by=' + $(this).attr('data-sort');
+                $hightToLow.prop('checked', false);
+            } else {
+                dataSort = '';
+            }
+        });
+
+        if ( $hightToLow.prop('checked') ) {
+            dataSort = '?sort_by=' + $hightToLow.attr('data-sort');
+        }
+
+        if ( $lowTohigh.prop('checked') ) {
+            dataSort = '?sort_by=' + $hightToLow.attr('data-sort');
+        }
+
+        var newTags = [];
+
+        collFilters.find('.filter__option-value-tag.active').each(function(){
+            newTags.push($(this).attr('data-tag'));
+        });
+
+        collFilters.find('.filter__option-value-tag').click(function()  {
+
+            $(this).toggleClass('active');//
+
+            if ($(this).attr('data-tag') ) {
+
+                if( newTags.indexOf($(this).attr('data-tag')) != -1 ) {
+                    newTags.splice(newTags.indexOf($(this).attr('data-tag')), 1);
+                    return;
+                } else {
+                    newTags.push($(this).attr('data-tag'));
+                }
+            }
+
+        });
+
+        $applyBtn.click(function() {
+            if (newTags.length || dataSort) {
+                var query = newTags.join('+');
+                window.location.href = $('{{ 'tag' | link_to_tag: 'tag' }}').attr('href').replace('tag', query).split('?')[0] + dataSort;
+        }
+            else {
+                {% if collection.handle %}
+                window.location.href = '/collections/{{ collection.handle }}';
+                {% elsif collection.products.first.type == collection.title %}
+                window.location.href = '{{ collection.title | url_for_type }}';
+                {% elsif collection.products.first.vendor == collection.title %}
+                window.location.href = '{{ collection.title | url_for_vendor }}';
+                {% endif %}
+            }
+        });
+
+        $resetBtn.click(function() {
+            window.location.href = '/collections/{{ collection.handle }}';
+        });
+
+    });
+</script>
+
+{% schema %}
+{
+    "name": "Product Sizes",
+    "settings": [
+        {
+            "type": "text",
+            "id": "high_to_low",
+            "label": "High to low text",
+            "default": "High to low"
+        },
+        {
+            "type": "text",
+            "id": "low_to_high",
+            "label": "Low to high text",
+            "default": "Low to high"
+        },
+        {
+            "type": "text",
+            "id": "reset_button",
+            "label": "Text for reset button",
+            "default": "Reset"
+        },
+        {
+            "type": "text",
+            "id": "apply_button",
+            "label": "Text for apply button",
+            "default": "Apply"
+        }
+        ],
+        "blocks": [
+            {
+                "type": "size",
+                "name": "Size",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "size_title",
+                        "label": "Size title"
+                    }
+            ]
+        }
+    ]
+}
+{% endschema %}
+

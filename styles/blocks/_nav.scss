@@ -1,0 +1,16 @@
+.nav {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    .nav__item {
+        display: block;
+
+        a {
+            @extend .link;
+        }
+
+        & + .nav__item {
+            margin-left: 20px;
+        }
+    }
+}

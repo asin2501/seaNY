@@ -1,0 +1,41 @@
+<script id="minicart-item-template" type="text/x-handlebars-template">
+    {% raw %}
+        {{#if items}}
+        {{#each items}}
+        <div class="minicart-item" id="minicart-item-{{ id }}">
+            <div class="minicart-item__inner">
+                <div class="minicart-item__image">
+                    <a href="{{url}}">
+                        <img src="{{ image }}"
+                             alt="">
+                    </a>
+                </div>
+                <div class="minicart-item__content">
+                    <h6 class="minicart-item__title">
+                        <a href="{{ url }}"><span>{{ product_title }},</span></a> <span>{{ price }}</span>
+                    </h6>
+                    <ul class="minicart-item__property">
+                        {{#if size}}
+                        <li class="minicart-item__property-item">
+                            <span>Size</span> - <span>{{ size }}</span>
+                        </li>
+                        {{/if}}
+                        {{#if color}}
+                        <li class="minicart-item__property-item">
+                            <span>Color</span> - <span>{{ color }}</span>
+                        </li>
+                        {{/if}}
+                        <li class="minicart-item__property-item">
+                            <span>Qty</span> - <span>{{ quantity }}</span>
+                        </li>
+                    </ul>
+                    <a href="{{ id }}" class="minicart-item__remove js-remove-minicart-item">Remove</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        {{ else }}
+        <span class="minicart__item">Now cart is empty</span>
+        {{/if }}
+    {% endraw %}
+</script>

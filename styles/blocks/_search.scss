@@ -1,0 +1,31 @@
+.search {
+    .search__title {
+        margin-bottom: 65px;
+        padding: 0 10px;
+        text-align: center;
+    }
+
+    @include breakpoint(medium) {
+        .search__title {
+            font-size: 38px;
+        }
+
+    }
+
+    @include breakpoint(small) {
+        .search__title {
+            margin-bottom: 35px;
+            font-size: 30px;
+        }
+
+        .shop {
+            margin-top: 30px;
+        }
+    }
+
+    @include breakpoint(extra-small) {
+        .search__title {
+            font-size: 25px;
+        }
+    }
+}

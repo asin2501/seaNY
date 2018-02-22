@@ -1,0 +1,254 @@
+.minicart {
+    padding-top: 20px;
+    padding-left: 22px;
+    position: fixed;
+    top: 150px !important;
+    width: 400px;
+    right: 0;
+    background-color: #fff;
+    z-index: 110;
+    padding-bottom: 224px;
+    font-size: 15px;
+    outline: 1px solid $border-color;
+    //max-height: calc(100vh - 200px - 150px);
+    transform: translateX(101%) translateZ(0);
+
+    transition: transform 300ms linear, top 300ms linear;
+
+    .header-sticky & {
+        top: 91px !important;
+
+        .minicart__conent {
+            max-height: calc(100vh - 220px - 92px - 20px);
+        }
+    }
+
+    .button + .button {
+        margin-top: 20px;
+    }
+
+    .minicart__item {
+        display: block;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    &.minicart--opened {
+        transform: translateX(0) translateZ(0);
+    }
+
+    .minicart-item__property-item {
+        display: block;
+    }
+    .minicart__footer {
+        position: absolute;
+        display: block;
+        left: 0px;
+        bottom: 0;
+        padding-top: 20px;
+        padding-left: 22px;
+        padding-right: 22px;
+        padding-bottom: 30px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .minicart__subtotal {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    .minicart__conent {
+        max-height: calc(100vh - 220px - 170px);
+        overflow-y: auto;
+        transition: max-height 300ms linear, height 300ms linear;
+    }
+
+    @include breakpoint(medium) {
+        top: 134px !important;
+        padding-top: 20px;
+
+        .button {
+            height: 44px;
+            line-height: 44px;
+        }
+
+        .minicart__conent {
+            //max-height: calc(100vh - 150px - 135px - 20px);
+            height: calc(100vh - 133px - 210px - 20px); //header cart-footer padding-top
+            height: calc(100vh - 133px - 235px - 20px); //header cart-footer padding-top
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .header-sticky & {
+            top: 89px !important;
+
+            .minicart__conent {
+                //max-height: calc(100vh - 150px - 90px - 20px);
+                height: calc(100vh - 88px - 210px - 20px); //header cart-footer padding-top
+                overflow-y: scroll;
+                //overflow:touch;
+                max-height: 100vh;
+            }
+
+        }
+
+        @media(orientation: landscape) {
+            //top: 91px !important;
+            top: 61px !important;
+            .minicart__conent {
+                //max-height: calc(100vh - 150px - 92px - 20px);
+                height: calc(100vh - 91px - 210px - 20px);
+
+            }
+
+            .header-sticky & {
+                top: 69px !important;
+                .minicart__conent {
+                    //max-height: calc(100vh - 150px - 70px - 20px);
+                    height: calc(100vh - 69px - 210px - 20px);
+                }
+            }
+        }
+
+        @media (orientation: portrait) {
+            top: 114px !important;
+        }
+    }
+
+    @include breakpoint(extra-small) {
+
+        @media (orientation: landscape) {
+            top: 76px !important;
+        }
+    }
+
+    @include breakpoint(mobile-landscape) {
+        //top: 86px !important;
+        top: 71px !important;
+        width: 280px;
+
+        .header-sticky & {
+            top: 61px !important;
+
+            .minicart__conent {
+                //max-height: calc(100vh - 150px - 62px - 20px);
+                height: calc(100vh - 210px - 60px - 20px); //header cart-footer padding-top
+            }
+
+        }
+
+        .minicart__conent {
+            //max-height: calc(100vh - 150px - 87px - 20px);
+            height: calc(100vh - 210px - 85px - 20px); //header cart-footer padding-top
+        }
+    }
+}
+
+.infobar-opened .minicart {
+    top: 188px !important;
+
+    .minicart__conent {
+        max-height: calc(100vh - 235px - 175px - 20px);
+    }
+
+    @include breakpoint(medium) {
+        top: 151px !important;
+        .minicart__conent {
+            max-height: 100vh;
+        }
+
+        @media (orientation: landscape) {
+            top: 98px !important;
+            .minicart__conent {
+                height: calc(100vh - 112px - 210px - 20px);
+            }
+            //.minicart__conent {
+            //max-height: 100vh;}
+        }
+    }
+
+    @include breakpoint(extra-small) {
+
+        @media (orientation: landscape) {
+
+            top: 113px !important;
+
+            .minicart__conent {
+                height: calc(100vh - 91px - 235px - 20px);
+            }
+        }
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        top: 146px !important;
+    }
+
+    @include breakpoint(mobile-landscape) {
+        top: 103px !important;
+        .minicart__conent {
+            height: calc(100vh - 210px - 117px - 20px);
+        }
+    }
+}
+
+.infobar-opened.header-sticky .minicart {
+    top: 128px !important;
+
+    .minicart__conent {
+        max-height: calc(100vh - 220px - 128px - 20px);
+    }
+
+    @include breakpoint(medium) {
+        top: 126px !important;
+        .minicart__conent {
+            height: calc(100vh - 88px - 260px - 20px);
+        }
+
+        .minicart__conent {
+            max-height: 100vh;
+        }
+
+        @media (orientation: landscape) {
+            top: 106px !important;
+            .minicart__conent {
+                max-height: 100vh;
+            }
+        }
+    }
+
+    @include breakpoint(mobile-landscape) {
+        top: 93px !important;
+        .minicart__conent {
+            height: calc(100vh - 200px - 117px - 20px);
+        }
+    }
+}
+
+.minicart__error-msg {
+    display: none;
+    position: fixed;
+    background-color: #fff;
+    border: 1px solid #000;
+    padding: 60px 40px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 20;
+    max-width: 600px;
+
+    &::before {
+        content: 'x';
+        position: absolute;
+        font-size: 30px;
+        top: 10px;
+        right: 15px;
+        line-height: 1;
+    }
+
+    @include breakpoint(extra-small) {
+        max-width: 90%;
+    }
+}

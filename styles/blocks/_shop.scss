@@ -1,0 +1,69 @@
+.shop {
+    margin-bottom: 95px;
+
+    .shop__container {
+        max-width:82vw;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .shop__row {
+        display: flex;
+        flex-wrap: wrap;
+        width: auto;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .pagination {
+        border-top: none;
+    }
+
+    @include breakpoint(medium) {
+        margin-top: 60px;
+
+        .shop__container{
+            width:auto;
+            max-width: inherit;
+            margin-right:50px;
+            margin-left:50px;
+        }
+    }
+
+    @include breakpoint(small) {
+        margin-top: 0;
+        margin-bottom: 70px;
+
+        .shop__container {
+            margin-right: 30px;
+            margin-left: 30px;
+        }
+
+        .shop__row {
+            justify-content: space-between;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .pagination {
+            margin-top: 100px;
+
+            span {
+                margin: 0 5px;
+            }
+        }
+    }
+
+    @include breakpoint(extra-small) {
+        .pagination {
+            margin-top: 50px;
+        }
+    }
+
+    @include breakpoint(mobile-landscape) {
+        .shop__container {
+            margin-right: 20px;
+            margin-left: 20px;
+        }
+    }
+}

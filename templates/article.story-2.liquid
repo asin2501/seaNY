@@ -1,0 +1,273 @@
+<div class="blog blog--article">
+    <div class="small-container">
+
+        {% comment %} For articles navigation {% endcomment %}
+        {% assign current_found = false %}
+        {% assign done = false %}
+        {% for a in blog.articles %}
+            {% if current_found and done == false %}
+                {% assign next_article = a %}
+                {% assign done = true %}
+            {% endif %}
+            {% unless done %}
+            {% if a.id == article.id %}
+                {% assign current_found = true %}
+            {% else %}
+                {% assign prev_article = a %}
+            {% endif %}
+            {% endunless %}
+        {% endfor %}
+
+        <article id="{{ article.handle }}" class="article-post article-post--stories2" data-handle="{{ article.handle }}">
+            <div class="article-post__heading">
+                <h1 class="article-post__heading-title">{{ article.title }}</h1>
+                <h4 class="article-post__heading-excerpt">{{ article.excerpt }}</h4>
+            </div>
+
+            {% assign  main_image = article.metafields.custom_fields['stories-2_main-image'] %}
+            {% if main_image %}
+                <div class="article-post__head-img">{{ main_image }}</div>
+            {% endif %}
+
+            {% assign stories2_proff_title = article.metafields.custom_fields['stories-2-proffesion-title'] %}
+            {% assign stories2_proff_name = article.metafields.custom_fields['stories-2-proffesion-name'] %}
+            {% if stories2_proff_title or stories2_proff_name %}
+                <div class="article-post__additional-info text-center">
+                    <h5><span>{{ stories2_proff_title }}</span> {{ stories2_proff_name }}</h5>
+                </div>
+            {% endif %}
+
+            {% assign stories2_proff_text = article.metafields.custom_fields['stories-2-proffesion-text'] %}
+            {% if stories2_proff_text %}
+                <div class="article-post__about-us">
+                    {{ stories2_proff_text }}
+                </div>
+            {% endif %}
+
+
+            {% assign stories2_image01 = article.metafields.custom_fields['stories-2_content-image-1'] %}
+            {% if stories2_image01 %}
+                <div class="article-post__content">
+                    <div class="article-post__content__text">
+                        <div class="article-post__content__text-block">
+                            {{ article.metafields.custom_fields['stories-2_content-text-1'] }}
+                        </div>
+                    </div>
+
+                    <div class="article-post__content__image">
+                        {{ stories2_image01 }}
+
+                        {% assign linkToProduct1 = article.metafields.custom_fields['stories-2_content-link-1-title'] %}
+                        {% assign linkToProduct2 = article.metafields.custom_fields['stories-2_content-link-2-title'] %}
+                        {% assign linkToProductUrl1 = article.metafields.custom_fields['stories-2_content-link-1-url'] %}
+                        {% assign linkToProductUrl2 = article.metafields.custom_fields['stories-2_content-link-2-url'] %}
+                        {% if linkToProduct1 and linkToProduct2 %}
+                            <div class="article-post__content__image-links">
+                                <a href="{{ linkToProductUrl1 }}"
+                                   class="article-post__content__image-link">{{ linkToProduct1 }}</a><strong>{{ article.metafields.custom_fields['stories-2_at_top-text'] }}</strong><a
+                                        href="{{ linkToProductUrl2 }}"
+                                        class="article-post__content__image-link">{{ linkToProduct2 }}</a>
+                            </div>
+                            {% elsif linkToProduct1 %}
+                            <div class="article-post__content__image-links">
+                                <a href="{{ linkToProductUrl1 }}"
+                                   class="article-post__content__image-link">{{ linkToProduct1 }}</a>
+                            </div>
+                            {% elsif linkToProduct2 %}
+                            <div class="article-post__content__image-links">
+                                <a href="{{ linkToProductUrl2 }}"
+                                   class="article-post__content__image-link">{{ linkToProduct2 }}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% assign stories2_image02 = article.metafields.custom_fields['stories-2_content-2-image-1'] %}
+            {% if stories2_image02 %}
+                <div class="article-post__content">
+                    <div class="article-post__content__text">
+                        <div class="article-post__content__text-block">
+                            {{ article.metafields.custom_fields['stories-2_content-2-text-1'] }}
+                        </div>
+                    </div>
+
+                    <div class="article-post__content__image">
+                        {{ stories2_image02 }}
+
+                        {% assign content2linkToProduct1 = article.metafields.custom_fields['stories-2_content-2-link-1-tit'] %}
+                        {% assign content2linkToProduct2 = article.metafields.custom_fields['stories-2_content-2-link-2-tit'] %}
+                        {% assign content2linkToProductUrl1 = article.metafields.custom_fields['stories-2_content-2-link-1-url'] %}
+                        {% assign content2linkToProductUrl2 = article.metafields.custom_fields['stories-2_content-2-link-2-url'] %}
+                        {% if content2linkToProduct1 and content2linkToProduct2 %}
+                            <div class="article-post__content__image-links">
+                                <a href="{{ linkToProductUrl1 }}"
+                                   class="article-post__content__image-link">{{ content2linkToProduct1 }}</a><strong>{{ article.metafields.custom_fields['stories-2_at_top-text'] }}</strong><a
+                                        href="{{ linkToProductUrl2 }}"
+                                        class="article-post__content__image-link">{{ content2linkToProduct2 }}</a>
+                            </div>
+                            {% elsif content2linkToProduct1 %}
+                            <div class="article-post__content__image-links">
+                                <a href="{{ content2linkToProductUrl1 }}"
+                                   class="article-post__content__image-link">{{ content2linkToProduct1 }}</a>
+                            </div>
+                            {% elsif content2linkToProduct2 %}
+                            <div class="article-post__content__image-links">
+                                <a href="{{ content2linkToProductUrl2 }}"
+                                   class="article-post__content__image-link">{{ content2linkToProduct2 }}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% assign styling_title = article.metafields.custom_fields['stories-2_styling_title'] %}
+            {% assign styling_name = article.metafields.custom_fields['stories-2_styling_name'] %}
+
+            {% assign hair_title = article.metafields.custom_fields['stories-2_hair_title'] %}
+            {% assign hair_name = article.metafields.custom_fields['stories-2_hair_name'] %}
+
+            {% assign makeup_name = article.metafields.custom_fields['stories-2_makeup_name'] %}
+            {% assign makeup_title = article.metafields.custom_fields['stories-2_makeup_title'] %}
+
+            {% assign model_title = article.metafields.custom_fields['stories-2_model_title'] %}
+            {% assign model_name = article.metafields.custom_fields['stories-2_model_name'] %}
+
+
+            <div class="article-post__additional-info">
+                {% if styling_title or styling_name %}
+                    <h5>
+                        <span>{{ styling_title }}</span> {{ styling_name }}
+                    </h5>
+                {% endif %}
+
+                {% if hair_title or hair_name %}
+                    <h5>
+                        <span>{{ hair_title }}</span> {{ hair_name }}
+                    </h5>
+                {% endif %}
+
+                {% if makeup_title or makeup_name %}
+                    <h5>
+                        <span>{{ makeup_title }}</span> {{ makeup_name }}
+                    </h5>
+                {% endif %}
+
+                {% if model_title or model_name %}
+                    <h5>
+                        <span>{{ model_title }}</span> {{ model_name }}
+                    </h5>
+                {% endif %}
+
+                
+                <a href="{{ article.metafields.custom_fields['stori2-explore_more_link_url'] }}"
+                   class="article-post__explore-link">{{ article.metafields.custom_fields['stori2-explore_more_link_title'] }}</a>
+
+                <div class="article-post__navigation">
+                    {% assign storie_prev_article_title = article.metafields.custom_fields['storie-2-prev-article-title'] %}
+                    {% assign storie_next_article_title = article.metafields.custom_fields['storie-2-next-article-title'] %}
+                    {% assign link_blog2_title = article.metafields.custom_fields['stori2-explore_more_link_title'] %}
+                    {% assign link_blog2_url = article.metafields.custom_fields['stori2-explore_more_link_url'] %}
+
+                    {% comment %}
+                    {% if prev_article %}
+                        <a class="link" href="{{ prev_article.url }}">{% if storie_prev_article_title %} {{ storie_prev_article_title }} {% else %}Explore more stories{% endif %}  <span
+                                    style="display: none;">{{ prev_article.title | escape }}</span></a>
+                    {% endif %}
+                    {% endcomment %}
+
+                    {% if link_blog2_title %}
+                        <a href="{{ link_blog2_url }}" class="link">{{ link_blog2_title }}</a>
+                        {% else %}
+                            <a href="/blogs/{{ blog.handle }}" class="link">Explore more stories</a>
+                    {% endif %}
+
+                    {% if next_article %}
+                        <span class="article-post__navigation-divider">/</span>
+                    {% endif %}
+
+                    {% if next_article %}
+                        <a class="link" href="{{ next_article.url }}">{% if storie_next_article_title %}{{ storie_next_article_title }}{% else %}Next Story{% endif %}  <span
+                                    style="display: none;">{{ next_article.title | escape }}</span></a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </article>
+    </div>
+
+    <div class="big-container big-container--border-top"></div>
+
+    <div class="small-container">
+        <section class="related-product">
+            {% assign related_title = article.metafields.custom_fields['related_product_title'] %}
+            {% if related_title %}
+                <h3 class="related-product__title">{{ related_title }}</h3>
+            {% else %}
+                <h3 class="related-product__title">Shop The Story</h3>
+            {% endif %}
+
+            <div class="related-product__container">
+                {% assign product_handles = '' %}
+                {% assign product_counter = 0 %}
+                {% for iterator in (1..3) %}
+                    {% assign field_name = 'related_product_' | append: iterator %}
+                    {% assign product_handle = article.metafields.custom_fields[field_name] %}
+                    {% if product_handle %}
+                        {% assign product_counter = product_counter | plus: 1 %}
+                        {% assign product_handles = product_handles | append: ' ' | append: product_handle %}
+                        {% assign the_product = all_products[product_handle] %}
+                        {% include 'product', the_product:the_product, modificator: 'related' %}
+
+                    {% endif %}
+                {% endfor %}
+                {% assign limit = 3 | minus: product_counter %}
+                {% assign iterator = 0 %}
+                {% assign the_collection = collections | last %}
+                {% if limit != 0 %}
+                    {% for the_product in the_collection.products %}
+                        {% if product_handles contains product.handle %}
+                            {% continue %}
+                        {% endif %}
+
+                        {% include 'product', the_product: the_product, modificator: 'related' %}
+
+                        {% assign iterator = iterator | plus:1 %}
+                        {% if  iterator == limit %}
+                            {% break %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </section>
+    </div>
+
+
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (e) {
+
+        var currentUrlPath = window.location.pathname;
+        var splitUrl = currentUrlPath.split('/');
+
+        var sliceUrl = splitUrl.slice(-2);
+        var currentArticleUrl = sliceUrl.join('/');
+        var $target = '#article-' + currentUrlPath;
+
+        var b = document.getElementById(sliceUrl);
+
+        var article = $('article');
+        article.each(function () {
+            if ($(this).attr('data-handle') === currentArticleUrl) {
+            } else {
+                $(this).addClass('hide')
+            }
+        });
+    });
+
+
+</script>
+
+

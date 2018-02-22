@@ -1,0 +1,212 @@
+<style>
+    .banner-slider {
+        display: block;
+    }
+</style>
+
+{% assign autoplay_speed = 0 %}
+
+{% if section.settings.autoplay %}
+    {% assign autoplay_speed = section.settings.autoplay_slider_speed_range %}
+{% endif %}
+
+<section class="banner-slider big-container">
+    <div class="banner-slider__inner-wrapper">
+
+        {% if section.settings.desctop_content_type == 'images' %}
+            <div class="banner-slider__slider banner-slider__slider--desktop arrow-{{ section.settings.arrow_color }}"
+                data-speed="{{ section.settings.slider_speed_range }}"
+                data-autoplay="{{ autoplay_speed }}"
+            >
+                {% for slide in section.blocks %}
+                    {% if slide.settings.mobile_item != true %}
+                        <div class="banner-slider__slide">
+                            <div class="banner-slider__slide-inner">
+                                <img class="banner-slider__image" src="{{ slide.settings.img | img_url:'master' }}"
+                                     alt="photo">
+                            </div>
+                            <div class="banner-slider__content section-header section-header--white">
+                                <h2 class="section-header__title">{{ slide.settings.title }}</h2>
+                                <h6 class="section-header__subtitle">{{ slide.settings.subtitle }}</h6>
+                                <a class="section-header__link"
+                                   href="{{ slide.settings.link_url }}">{{ slide.settings.link_name }}</a>
+                                <a class="banner-slider__arrow js-scroll-to-bottom" href=".banner-slider">
+                                    {% include 'arrow-bottom-big' %}
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="banner-slider__video">
+                <iframe id="hero-player" src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}" frameborder="0"></iframe>
+                <div class="banner-slider__content section-header section-header--white">
+                    <h2 class="section-header__title">{{ section.settings.title }}</h2>
+                    <h6 class="section-header__subtitle">{{ section.settings.subtitle }}</h6>
+                    <a class="section-header__link"
+                       href="{{ slide.settings.link_url }}">{{ section.settings.link_name }}</a>
+                    <a class="banner-slider__arrow js-scroll-to-bottom" href=".banner-slider">
+                        {% include 'arrow-bottom-big' %}
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+        <div class="banner-slider__slider banner-slider__slider--mobile arrow-{{ section.settings.arrow_color }}">
+            {% for slide in section.blocks %}
+                {% if slide.settings.mobile_item == true %}
+                    <div class="banner-slider__slide">
+                        <div class="banner-slider__slide-inner">
+                            <img class="banner-slider__image" src="{{ slide.settings.img | img_url:'master' }}"
+                                 alt="photo">
+                        </div>
+                        <div class="banner-slider__content section-header section-header--white">
+                            <h2 class="section-header__title">{{ slide.settings.title }}</h2>
+                            <h6 class="section-header__subtitle">{{ slide.settings.subtitle }}</h6>
+                            <a class="section-header__link"
+                               href="{{ slide.settings.link_url }}">{{ slide.settings.link_name }}</a>
+                            <a class="banner-slider__arrow js-scroll-to-bottom" href=".banner-slider">
+                                {% include 'arrow-bottom-big' %}
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% schema %}
+{
+    "name": "Banner Slider",
+    "settings": [
+        {
+            "type":      "radio",
+            "id":        "desctop_content_type",
+            "label": "Select what content wil be shown on desktop",
+            "options": [
+                    { "value": "images", "label": "Show images on the desktop" },
+                    { "value": "video", "label": "Show video on the desktop" }
+            ],
+            "default":   "video",
+            "info":      "Text"
+        },
+        {
+            "type": "range",
+            "id": "slider_speed_range",
+            "label": "Slider speed",
+            "min":       200,
+            "max":       2000,
+            "step":      100,
+            "default":   300
+        },
+        {
+            "type":"checkbox",
+            "id": "autoplay",
+            "label": "Activate autoplay",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "autoplay_slider_speed_range",
+            "label": "Autoplay slider speed",
+            "min":       750,
+            "max":       5000,
+            "step":      250,
+            "default":   1000
+        },
+        {
+            "id":"arrow_color",
+            "label": "Arrows color",
+            "type": "select",
+            "options": [
+                {
+                    "value": "black",
+                    "label": "Black"
+                },{
+                    "value": "white",
+                    "label": "White"
+                }
+            ],
+            "default": "black"
+        },
+        {
+            "type": "header",
+            "content": "Video setting"
+        },
+        {
+            "label": "Video url",
+            "id": "video_url",
+            "type": "video_url",
+            "accept": ["vimeo"]
+        },{
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default":"Fall 2017"
+        },
+        {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Subtitle",
+            "default":"The lastest collection has arrived."
+        },
+        {
+            "type": "text",
+            "id": "link_name",
+            "label": "Link name",
+            "default":"explore now"
+        },
+        {
+            "type": "url",
+            "id": "link_url",
+            "label": "Link url"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "picture",
+            "name": "Picture",
+            "settings": [
+                {
+                    "label": "Select picture",
+                    "id": "img",
+                    "type": "image_picker"
+                },{
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title",
+                    "default":"Fall 2017"
+                },
+                {
+                    "type": "text",
+                    "id": "subtitle",
+                    "label": "Subtitle",
+                    "default":"The lastest collection has arrived."
+                },
+                {
+                    "type": "text",
+                    "id": "link_name",
+                    "label": "Link name",
+                    "default":"explore now"
+                },
+                {
+                    "type": "url",
+                    "id": "link_url",
+                    "label": "Link url"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "mobile_item",
+                    "label": "Mobile pictue"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Banner Slider",
+            "category": "Special sections"
+        }
+    ]
+}
+{% endschema %}

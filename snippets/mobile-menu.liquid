@@ -1,0 +1,62 @@
+<div class="mobile-nav" id="mobile-menu">
+    <ul class="mobile-nav__list">
+        {% for link in linklist.links %}
+            {% assign child_list_handle = link.title | handle %}
+            {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+                <li class="mobile-nav__item mobile-nav__item--hasdropdown">
+                    <a class="mobile-nav__link" href="{{ link.url }}">{{ link.title }}</a>
+                    <ul class="mobile-nav__submenu">
+                        <li class="mobile-nav__item mobile-nav__item--back js-back-btn"><span class="mobile-nav__link">Back</span></li>
+                        {% for child_link in linklists[child_list_handle].links %}
+                            <li class="mobile-nav__item">
+                                <a class="mobile-nav__link" href="{{ child_link.url }}">{{ child_link.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% else %}
+                <li class="mobile-nav__item">
+                    <a class="mobile-nav__link" href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if customer %}
+            <li class="mobile-nav__item">
+                <a href="/account" class="mobile-nav__link">{{ 'layout.customer.account' | t }}</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a href="/account/logout" class="mobile-nav__link">{{ 'layout.customer.log_out' | t }}</a>
+            </li>
+        {% else %}
+            <li class="mobile-nav__item js-login">
+                <a href="/account/login" id="customer_login_link" class="mobile-nav__link">{{ 'layout.customer.log_in' | t }}</a>
+            </li>
+            <li class="mobile-nav__item js-register">
+                <a href="/account/register" id="customer_register_link" class="mobile-nav__link">{{ 'layout.customer.create_account' | t }}</a>
+            </li>
+        {% endif %}
+        <li class="mobile-nav__item">
+            <div class="mobile-nav__link mobile-nav__link--social">
+                <span>Follow Us</span>
+                {%- assign social_accounts = 'Instagram, Twitter, Facebook, Pinterest, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+                <ul class="mobile-nav__social">
+                    {% for social in social_accounts %}
+                        {%- assign social_handle = social | handleize -%}
+                        {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+                        {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+
+                        {% if settings[social_link] != blank %}
+                            <li class="mobile-nav__social-item">
+
+                                <a class="mobile-nav__social-link" href="{{ settings[social_link] }}" target="_blank"
+                                   title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+                                    {% include social_icon %}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>

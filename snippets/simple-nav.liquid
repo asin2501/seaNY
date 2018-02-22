@@ -1,0 +1,7 @@
+<ul class="nav {{ menu_class }}">
+  {% for link in linklists[custom_link_list].links %}
+      <li class="{{ menu_item_class }} {% if link.active %}{{ menu_item_class }}--active{% endif %}">
+        <a href="{{ link.url }}" class="{{ menu_class }}__link">{{ link.title }}</a>
+      </li>
+  {% endfor %}
+</ul>

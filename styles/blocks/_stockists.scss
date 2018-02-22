@@ -1,0 +1,192 @@
+.stockists {
+    margin-top: 70px;
+    margin-bottom: 80px;
+
+    .stockists__image {
+        width: auto;
+        margin-right: 280px;
+        margin-left: 280px;
+        text-align: center;
+        line-height: 0;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .stockists__link-back {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 18px;
+        text-align: center;
+        letter-spacing: 0.3px;
+        transform: translateX(-50%);
+
+        &.hide {
+            display: none;
+        }
+
+        @extend .link;
+    }
+
+    .stockists__country-container {
+        position: relative;
+        padding-top: 40px;
+        padding-left: 78px;
+        padding-right: 78px;
+
+        .country-list {
+            margin-top: 28px;
+        }
+    }
+
+    .stockists__shops-container {
+        display: flex;
+        flex-wrap: wrap;
+
+        &.hide {
+            display: none;
+        }
+    }
+
+    .stockists__shop {
+        display: none;
+        width: 25%;
+        margin-top: 65px;
+        padding-right: 20px;
+        line-height: 1;
+
+        address {
+            display: inline-block;
+        }
+
+        p + p {
+            margin-top: 10px;
+        }
+    }
+
+    .stockists__shop-title {
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+        line-height: 1.2;
+
+        a {
+            @extend .link;
+        }
+    }
+
+    .stockists__shop-phone {
+        @extend .link;
+    }
+
+    @include breakpoint(extra-large) {
+        .stockists__shop-title {
+            font-size: 22px;
+        }
+
+        .stockists__image {
+            margin-left: 120px;
+            margin-right: 120px;
+        }
+
+        .stockists__country-container {
+            padding-left: 45px;
+            padding-right: 45px;
+        }
+
+        .small-container {
+            margin-left: 120px;
+            margin-right: 120px;
+        }
+    }
+
+    @include breakpoint(large) {
+        .stockists__shop-title {
+            font-size: 19px;
+        }
+    }
+
+    @include breakpoint(medium) {
+        .stockists__image {
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+
+        .stockists__shop {
+            font-size: 16px;
+        }
+
+        .small-container {
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+    }
+
+    @include breakpoint(small) {
+        margin-top: 43px;
+        margin-bottom: 60px;
+
+        .stockists__image {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .stockists__country-container {
+            padding-left: 0px;
+            padding-right: 0px;
+
+            .country-list {
+                margin-top: 40px;
+            }
+        }
+
+        .stockists__shop {
+            width: 50%;
+            padding: 0 10px;
+            font-size: 18px;
+            text-align: center;
+
+            address {
+                max-width: 265px;
+            }
+        }
+
+        .stockists__shop-title {
+            font-size: 25px;
+        }
+    }
+
+    @include breakpoint(extra-small) {
+        .stockists__shop {
+            font-size: 16px;
+        }
+
+        .stockists__shop-title {
+            font-size: 20px;
+        }
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        margin-top: 19px;
+        margin-bottom: 30px;
+
+        .stockists__country-container {
+            .country-list {
+                margin-top: 0;
+            }
+        }
+
+        .stockists__shop {
+            width: 100%;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            padding: 0;
+            font-size: 12px;
+        }
+
+        .stockists__shop-title {
+            font-size: 14px;
+        }
+    }
+}

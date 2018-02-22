@@ -1,0 +1,187 @@
+.mobile-nav {
+    font-size: 20px;
+    text-transform: uppercase;
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    z-index:20;
+    display: none;
+    width: 400px;
+    max-width:90%;
+
+    background-color: #fff;
+
+    box-sizing: border-box;
+    height: calc(100vh - 134px);
+    letter-spacing: 1px;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 300ms linear, height 300ms linear;
+
+    .header-sticky &{
+        height: calc(100vh - 88px);
+    }
+
+    a{
+        cursor: default;
+        text-decoration: none;
+    }
+
+    .mobile-nav__social {
+        display: flex;
+
+        svg {
+            width: 16px;
+            height:16px;
+        }
+    }
+    .mobile-nav__social-item {
+        display: block;
+        & + .mobile-nav__social-item {
+            margin-left: 20px;
+        }
+
+    }
+
+    &.mobile-nav--opened {
+        transform: translateX(0);
+    }
+
+    &.mobile-nav--submenu-opened {
+        .mobile-nav__list > .mobile-nav__item {
+            border-color: transparent;
+            & > *:not(.mobile-nav__submenu) {
+                opacity: 0;
+            }
+        }
+    }
+    .mobile-nav__item--submenu-open {
+        & > * {
+            transition: opacity 200ms linear;
+        }
+        .mobile-nav__submenu {
+            transform: translateX(0);
+            transition: transform 300ms linear 200ms;
+        }
+        &>.mobile-nav__link{
+            background-color: rgba(#999, 0.5);
+        }
+
+    }
+
+    .mobile-nav__item--hasdropdown {
+        & > .mobile-nav__link {
+            position: relative;
+            &::after {
+                content: '>';
+                display: block;
+                position: absolute;
+
+                right: 25px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    .mobile-nav__item.mobile-nav__item--back{
+        display: flex;
+        align-items:center;
+        &::before{
+            content: '<';
+            margin-right:5px;
+            margin-bottom: 3px;
+        }
+    }
+
+    .mobile-nav__list {
+        padding-left: 10px;
+        padding-bottom:20px;
+    }
+
+    .mobile-nav__item {
+        display: block;
+        border-bottom: 1px solid $border-color;
+       
+        transition: border 300ms linear;
+        
+        .mobile-nav__link{
+            display: block;
+            padding-top: 9px;
+            padding-right: 50px;
+            padding-bottom: 9px;
+            padding-left: 15px;
+        }
+        
+        & > * {
+            display: block;
+            transition: opacity 350ms linear;
+            &.mobile-nav__social {
+                display: flex;
+            }
+        }
+
+
+    }
+
+    .mobile-nav__link.mobile-nav__link--social {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .mobile-nav__submenu {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index:3;
+        padding-left: 10px;
+        width: 100%;
+        max-height: 100%;
+        transform: translateX(-100%);
+        transition: transform 300ms linear;
+        overflow-y: auto;
+    }
+
+    @include breakpoint(medium) {
+        display: block;
+
+        @media (orientation:landscape) {
+            //height: calc(100vh - 90px);
+            height: calc(100vh - 61px);
+
+            .header-sticky &{
+                //height: calc(100vh - 70px);
+                height: calc(100vh - 61px);
+            }
+        }
+    }
+
+    @include breakpoint(mobile-landscape) {
+        width: 280px;
+        font-size: 15px;
+
+        height: calc(100vh - 71px);
+
+        .mobile-nav__link {
+            padding-right: 30px;
+        }
+        .mobile-nav__social {
+
+            svg {
+                width: 14px;
+            }
+        }
+        .mobile-nav__social-item {
+            & + .mobile-nav__social-item {
+                margin-left: 15px;
+            }
+
+        }
+
+        .header-sticky &{
+            height: calc(100vh - 60px);
+        }
+    }
+
+}

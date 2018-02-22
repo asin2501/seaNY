@@ -1,0 +1,46 @@
+.country-list {
+    padding: 0;
+    list-style-type: none;
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+
+    .country-list__item {
+        line-height: 1;
+
+        span {
+            display: inline-block;
+            padding: 10px 0;
+        }
+
+        .country-list__link {
+            font-size: 18px;
+            @extend .link;
+        }
+
+    }
+
+    @include breakpoint(small) {
+        column-count: 2;
+        text-align: center;
+
+        .country-list__item {
+            span {
+                padding: 15px 0;
+            }
+
+            .country-list__link {
+                font-weight: bold;
+            }
+        }
+    }
+
+    @include breakpoint(extra-small) {
+        .country-list__item {
+            .country-list__link {
+                font-size: 14px;
+            }
+        }
+    }
+
+}

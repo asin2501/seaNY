@@ -1,0 +1,23 @@
+<div class="small-container">
+    <section class="cart">
+
+        <h3 class="cart__title">Shopping Bag</h3>
+        <form action="/" id="cart-form">
+            <input type="submit" class="hidden">
+            <div class="cart__items" id="cart-wrap">
+            </div>
+        </form>
+        <div class="cart-footer">
+            <h3>Order Summary</h3>
+            <ul class="cart-footer__summary">
+                <li class="cart-footer__summary-item">
+                    <span>Subtotal</span>
+                    <span id="full-cart-summary">{{ cart.total_price | money }}</span>
+                </li>
+            </ul>
+            <a href="/checkout" class="button button--black button--fluid">Checkout</a>
+        </div>
+    </section>
+</div>
+
+{% include 'cart-item' %}

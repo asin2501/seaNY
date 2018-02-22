@@ -1,0 +1,89 @@
+.customer-popup {
+    position: fixed;
+    top: 0% !important;
+    left: 0%;
+    z-index: 150;
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding: 0 15px;
+
+    .customer-popup__inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .customer-container {
+        width: 100%;
+        padding: 0;
+
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            margin-left: 0;
+        }
+    }
+
+    .popup__close-button {
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        width: 18px;
+        height: 26px;
+        z-index: 1;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+            background-color: #4c4849;
+            transition-duration: .3s;
+            transition-property: transform;
+
+        }
+
+        &::before {
+            transform: translateX(-50%) rotate(45deg) translateZ(0);
+        }
+
+        &::after {
+            transform: translateX(-50%) rotate(-45deg) translateZ(0);
+        }
+    }
+
+    @media (max-width: 767px) and (orientation: landscape) {
+        top: 0 !important;
+        bottom: 0;
+        padding: 15px;
+        overflow-y: auto;
+
+        .customer-popup__inner {
+            height: auto;
+            display: block;
+        }
+    }
+
+
+
+    @include breakpoint(small-tablet-portrait) {
+        input[type="text"], input[type="email"], input[type="password"], input[type="tel"], .input {
+            height: 30px;
+            padding: 3px 15px;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        label {
+            font-size: 14px;
+        }
+    }
+}

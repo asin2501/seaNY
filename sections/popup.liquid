@@ -1,0 +1,66 @@
+<div id="subscribe-popup" class="popup">
+    <div id="popup-close" class="popup__close-button"></div>
+    <div class="popup__inner">
+        {% if section.settings.popup_image != blank %}
+            <div class="popup__image">
+                <img src="{{ section.settings.popup_image | img_url: 'master' }}" alt="">
+            </div>
+        {% endif %}
+        <div class="popup__content">
+            <div class="subscribe-form">
+                <div class="subscribe-form__heading">
+                    <h4 class="subscribe-form__title">{{ section.settings.popup_form_title }}</h4>
+                    <p>{{ section.settings.popup_form_subtitle }}</p>
+                </div>
+                <form class="email_signup klaviyo_standard_embed_Nixqsd" action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank" novalidate="novalidate">
+                    <div class="subscribe-form__form">
+                        <input type="hidden" name="g" value="{{ section.settings.popup_form_id }}">
+                        <input type="email" class="input" value="" name="email" id="k_id_email" placeholder="{{ section.settings.form_placeholder }}" />
+                        <button class="subscribe-form__button" type="submit">{% include 'icon-submit' %}</button>
+                    </div>
+                    <div class="klaviyo_messages">
+                        <div class="success_message" style="display:none;"></div>
+                        <div class="error_message" style="display:none;"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Popup",
+    "class": "popup-wrapper",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "popup_image",
+            "label": "Popup image"
+        },
+        {
+            "type": "text",
+            "id": "popup_form_title",
+            "label": "The popup form title",
+            "default": "Sent From Sea"
+        },
+        {
+            "type": "text",
+            "id": "popup_form_subtitle",
+            "label": "The popup form subtitle",
+            "default": "Sign up to our newsletter to receive occasional news and updates."
+        },
+        {
+            "type": "text",
+            "id": "popup_form_id",
+            "label": "Form id"
+        },
+        {
+            "type": "text",
+            "id": "popup_form_placeholder",
+            "label": "Text for placeholder"
+        }
+    ]
+}
+
+{% endschema %}

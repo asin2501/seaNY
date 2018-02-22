@@ -1,0 +1,125 @@
+<div class="medium-container">
+    <section class="collection-gallery">
+        <div class="collection-gallery__header">
+            <h2 class="collection-gallery__title">{{ page.title }}</h2>
+            {% comment %}<a class="collection-gallery__link" href="">{{ 'collections.general.back_link' | t }}</a>{% endcomment %}            
+        </div>
+        <div class="collection-gallery__wrapper">
+            <div class="collection-gallery__row">
+                {% for i in (1..200) %}
+                    {% assign field_image_url = 'photo_' | append: i %}
+
+                    {% assign field_image_url_value = page.metafields.custom_fields[field_image_url] %}
+                    {% if field_image_url_value %}
+                        <div class="collection-gallery__item">
+                            <div class="collection-gallery__item--inner js-collection-item"
+                                 data-num="{{ i | minus: 1 }}">
+                                {{ field_image_url_value }}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+
+{% assign arrow_color = page.metafields.custom_fields["slider_arrow_color"] %}
+{% assign arrow_class = 'collection-popup__slider--black-arrow' %}
+{% if  arrow_color == 'white'%}
+    {% assign arrow_class = 'collection-popup__slider--white-arrow' %}
+{% endif %}
+
+
+
+<div class="collection-popup">
+    <a class="collection-popup__close-button" href=""><img src="{{ "cross.png" | asset_url }}" alt="cross"></a>
+    <h2 class="collection-popup__title">{{ page.title }}</h2>
+    <div class="collection-popup__slider-outer-wrapper {{ arrow_class }}">
+        <ul class="collection-popup__slider bxslider {% if arrow_color == 'White' %}collection-popup__slider--white-arrow{% endif %}">
+            {% for i in (1..50) %}
+                {% assign field_image_url = 'photo_' | append: i %}
+                {% assign field_image_name = 'name_' | append: i %}
+                {% assign field_image_author = 'author_' | append: i %}
+
+                {% assign field_image_url_value = page.metafields.custom_fields[field_image_url] %}
+                {% assign field_image_name_value = page.metafields.custom_fields[field_image_name] %}
+                {% assign field_image_author_value = page.metafields.custom_fields[field_image_author] %}
+
+                {% if field_image_url_value %}
+                    <li class="collection-popup__slide">
+                        <div class="collection-popup__slide-inner">
+                            {{ field_image_url_value }}
+                            <div class="collection-popup__footer">
+                                {% if field_image_name_value %}
+                                    <h6 class="collection-popup__name">{{ field_image_name_value }}</h6>
+                                {% endif %}
+                                {% if field_image_author_value %}
+                                    <div class="collection-popup__author">Photo: {{ field_image_author_value }}</div>
+                                {% endif %}
+                                <div class="collection-popup__copyright">&copy; {{ 'now' | date: "%Y" }} Sea New York</div>
+                                <a href="#" class="collection-popup__share-button">
+                                    {% include 'icon-upload' %}
+                                </a>
+                                <div class="collection-popup__social">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {% comment %}
+                        <div class="collection-social-share">
+                            <ul class="collection-social-share__list">
+                                <li class="collection-social-share__item">
+                                    {% comment %}twitter{% endcomment %}
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={page.url}"></a>
+                                </li>
+                                <li>
+                                    <a href=""></a>
+                                </li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            {% comment %}google+{% endcomment %}
+                            https://plus.google.com/share?url=asd
+
+                            {% comment %}linked In{% endcomment %}
+                            https://www.linkedin.com/shareArticle?mini=true&url=111&title=title&summary=111&source=111
+
+                            {% comment %}twitter{% endcomment %}
+                            https://twitter.com/home?status=dsfdf
+
+                            {% comment %}pinterest{% endcomment %}
+                            https://pinterest.com/pin/create/button/?url={ image_url }&media=111&description=333
+                        </div>
+                        {% endcomment %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style="">Next</button>
+        <button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Prev" role="button" style="">Prev</button>
+    </div>
+</div>
+
+<div class="share-popup" id="share-popup">
+    <div class="share-popup__container">
+        <button class="share-popup__close">
+           x
+        </button>
+        <ul class="share-list">
+            <li class="share-list__item" id="proxy-facebook">
+                {% include 'icon-facebook' %}
+            </li>
+            <li class="share-list__item" id="proxy-twitter">
+                {% include 'icon-twitter' %}
+            </li>
+            <li class="share-list__item" id="proxy-pinterest">
+                {% include 'icon-pinterest' %}
+            </li>
+        </ul>
+        <div class="hidden">
+            {% include 'addthis' %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+.slick-arrow {
+    position: absolute;
+    top: 50%;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    //transform: translateY(-50%);
+    z-index: 1;
+    font-size: 0;
+    color: transparent;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+
+    &.slick-next {
+        right: 20px;
+        background-image: url('./next-black.svg');
+
+    }
+
+    &.slick-prev {
+        left: 20px;
+        background-image: url('./prev-black.svg');
+    }
+
+    @include breakpoint(mobile-landscape) {
+        width: 25px;
+        height: 25px;
+
+        &.slick-next {
+            right: 15px;
+        }
+
+        &.slick-prev {
+            left: 15px;
+        }
+    }
+}
+
+.collection-popup__slider--white-arrow, .full-product__image-slider--white-arrow, .arrow-white {
+    .slick-next {
+        background-image: url('./next-white.svg');
+    }
+
+    .slick-prev {
+        background-image: url('./prev-white.svg');
+    }
+}

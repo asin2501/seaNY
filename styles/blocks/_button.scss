@@ -1,0 +1,62 @@
+.button {
+    display: inline-block;
+    height: 49px;
+    padding: 0 3vw;
+    border: 1px solid #000;
+    border-radius: 0;
+    background-color: transparent;
+    color: $dark-color;
+    line-height: 49px;
+    font-family: $brandon;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: .3s;
+    -webkit-appearance: none;
+    
+    &.button--disabled{
+        //display: none;
+    }
+
+    &:not(.button--disabled):focus,
+    &:not(.button--disabled):active,
+    &:not(.button--disabled):hover {
+        outline: none;
+        background-color: #000;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    &.button--fluid {
+        display: block;
+        width: 100%;
+    }
+
+    &.button--black {
+        color: #fff;
+        background-color: #000;
+        &:not(.button--disabled):focus,
+        &:not(.button--disabled):active,
+        &:not(.button--disabled):hover {
+            background-color: #fff;
+            color: #000;
+        }
+    }
+
+    @include breakpoint(small) {
+        padding: 0 40px;
+    }
+
+    @include breakpoint(extra-small) {
+        padding: 0 25px;
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        height: 35px;
+        line-height: 35px;
+        font-size: 13px;
+    }
+}

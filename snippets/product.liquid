@@ -1,0 +1,76 @@
+<div class="product-card {% if modificator %}product-card--{{ modificator }}{% endif %}">
+    <a class="product-card__link" href="{{ the_product.url | within: collection }} "></a>
+    <div class="product-card__inner">
+        <div class="product-card__image-wrapper">
+
+            {% if the_product.images.size > 1 %}
+                <img class="product-card__image" src="{{ the_product.featured_image | img_url: 'master' }}"
+                     alt="{{ this.featured_image.alt | escape }}">
+                <img class="product-card__alt-image" src="{{ the_product.images[1] | img_url: 'master' }}"
+                     alt="{{ this.alt_image.alt | escape }}">
+            {% else %}
+                <img class="product-item__image"
+                     src="{{ the_product.featured_image.src | img_url: 'master' }}"
+                     alt="{{ the_product.featured_image.alt }}">
+            {% endif %}
+        </div>
+
+        {% assign exist_sizes = '' %}
+
+        <div class="product-card__options">
+            <div class="product-card__sizes">
+                {% if the_product.variants %}
+                    {% for size in the_product.variants %}
+                        {% unless exist_sizes contains size.option1 %}
+                            {% assign quantity = size.inventory_quantity %}
+                            {% if quantity > 0 %}
+                                <span class="product-card__size" data-variant-id="{{ size.id }}">{{ size.option1 }}</span>
+                            {% else %}
+                                <span class="product-card__size product-card__size--out"
+                                      data-variant-id="{{ size.id }}">{{ size.option1 }}</span>
+                            {% endif %}
+                        {% assign exist_sizes = exist_sizes | append: size.option1 %}
+                        {% endunless %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <a href="{{ the_product.url }}" class="button">View Details</a>
+            <button type="submit" class="button js-add-to-card" class="btn"
+                    data-variant-id="{{ the_product.selected_or_first_available_variant.id }}">{{ 'products.product.add_to_cart' | t }}</button>
+        </div>
+    </div>
+
+    <div class="product-card__footer">
+        <span class="product-card__title"><a href="{{ the_product.url | within: collection }}">{{ the_product.title }}
+                <span class="product-card__title-divider">&mdash;</span></a></span>
+
+        <span class="product-card__price">
+                            {% if the_product.compare_at_price > the_product.price %}
+                                <span class="product-card__price-regular"><s>{{ the_product.compare_at_price | money }}</s></span>
+                            {% endif %}
+
+            {% if the_product.compare_at_price > the_product.price %}
+                {% if the_product.price_varies %}
+                    {%- assign sale_price = the_product.price | money -%}
+                    <span class="product-card__price-sale">{{ 'products.product.on_sale_from_html' | t: price: sale_price }}</span>
+                                {% else %}
+                    <span class="product-card__price-sale">{{ the_product.price | money }}</span>
+                {% endif %}
+
+                            {% else %}
+                {% if the_product.price_varies %}
+                    {%- assign price = the_product.price | money -%}
+                    <span class="product-card__price-normal">{{ 'products.product.from_text_html' | t: price: price }}</span>
+                                {% else %}
+                    <span>{{ the_product.price | money }}</span>
+                {% endif %}
+            {% endif %}
+
+
+
+            {% unless the_product.available %}
+            <span class="product-card__price-sold">{{ 'products.product.sold_out' | t }}</span>
+            {% endunless %}
+                        </span>
+    </div>
+</div>

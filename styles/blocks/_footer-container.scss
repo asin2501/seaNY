@@ -1,0 +1,21 @@
+.footer-container {
+    margin-top: 30px;
+    padding-bottom: 50px;
+
+
+    .big-container {
+        border-top: 1px solid #4c4849;
+    }
+
+    @include breakpoint(small) {
+        border-top: none;
+
+        .big-container {
+            border-top: none;
+        }
+    }
+
+    @include breakpoint(extra-small) {
+        padding-bottom: 0;
+    }
+}

@@ -1,0 +1,95 @@
+//typography: base styles for fonts, p, a, standard h1, h2 ...
+
+h1, h2, h3, h4, h5, h6{
+    font-family:$header-font;
+    font-weight:normal;
+}
+
+h1 {
+    font-size: 50px;
+
+    @include breakpoint(extra-small) {
+        font-size: 35px;
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        font-size: 18px;
+    }
+}
+
+h2{
+    font-size:42px;
+
+    @include breakpoint(extra-small) {
+        font-size: 30px;
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        font-size: 14px;
+    }
+}
+
+h3 {
+    font-size: 35px;
+
+    @include breakpoint(extra-small) {
+        font-size: 27px;
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        font-size: 13px;
+    }
+}
+
+h4 {
+    font-size: 25px;
+
+    @include breakpoint(extra-small) {
+        font-size: 23px;
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        font-size: 13px;
+    }
+}
+
+h5 {
+    font-size: 22px;
+
+    @include breakpoint(extra-small) {
+        font-size: 19px;
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        font-size: 13px;
+    }
+}
+
+h6{
+    font-size:18px;
+
+    @include breakpoint(extra-small) {
+        font-size: 16px;
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        font-size: 13px;
+    }
+}
+
+
+body{
+    font-family:$base-font;
+    font-size:18px;
+
+    @include breakpoint(small-tablet-portrait) {
+        font-size: 12px;
+    }
+}
+
+a{
+    color:#000;
+    &:hover{
+        text-decoration: underline;
+    }
+}

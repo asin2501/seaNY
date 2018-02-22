@@ -1,0 +1,183 @@
+<div class="blog blog--article">
+    <div class="small-container">
+        {% assign current_found = false %}
+        {% assign done = false %}
+
+        {% comment %} For articles navigation {% endcomment %}
+        {% for a in blog.articles %}
+            {% if current_found and done == false %}
+                {% assign next_article = a %}
+                {% assign done = true %}
+            {% endif %}
+            {% unless done %}
+            {% if a.id == article.id %}
+                {% assign current_found = true %}
+            {% else %}
+                {% assign prev_article = a %}
+            {% endif %}
+            {% endunless %}
+        {% endfor %}
+
+
+        <article id="{{ article.handle }}" class="article-post" data-handle="{{ article.handle }}">
+            <div class="article-post__heading">
+                <h1 class="article-post__heading-title">{{ article.title }}</h1>
+                <h4 class="article-post__heading-excerpt">{{ article.excerpt }}</h4>
+            </div>
+            {% assign  main_image = article.metafields.custom_fields['main_image'] %}
+            {% if main_image %}
+                <div class="article-post__head-img">{{ article.metafields.custom_fields['main_image'] }}</div>
+            {% endif %}
+
+
+            {% assign quote1_img = article.metafields.custom_fields['quote-1_image'] %}
+            {% if quote1_img %}
+                <div class="article-post__quote">
+                    <div class="article-post__quote-img">{{ article.metafields.custom_fields['quote-1_image'] }}</div>
+                    <div class="article-post__quote-text">
+                        <blockquote>
+                            {% comment %}<span class="article-post__quote-ico">‘</span>{% endcomment %}
+                            {{ article.metafields.custom_fields['quote-1_text'] }}
+                            {% comment %}<span class="article-post__quote-ico">’</span>{% endcomment %}
+                        </blockquote>
+                        <cite class="article-post__quote-author">{{ article.metafields.custom_fields['quote-1_author'] }}</cite>
+                    </div>
+                </div>
+            {% endif %}
+
+
+            {% assign quote2_img = article.metafields.custom_fields['quote-1_image'] %}
+            {% if quote2_img %}
+                <div class="article-post__quote">
+                    <div class="article-post__quote-img">{{ article.metafields.custom_fields['quote-2_image'] }}</div>
+                    <div class="article-post__quote-text">
+                        <blockquote>
+                            {% comment %}<span class="article-post__quote-ico">‘</span>{% endcomment %}
+                            {{ article.metafields.custom_fields['quote-2_text'] }}
+                            {% comment %}<span class="article-post__quote-ico">’</span>{% endcomment %}
+                        </blockquote>
+                        <cite class="article-post__quote-author">{{ article.metafields.custom_fields['quote-2_author'] }}</cite>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% assign bottom_image = article.metafields.custom_fields['bottom_image'] %}
+            {% if bottom_image %}
+                <div class="article-post__bottom-img">
+                    {{ article.metafields.custom_fields['bottom_image'] }}
+                </div>
+            {% endif %}
+
+            {% assign bottom_text = article.metafields.custom_fields['bottom-text'] %}
+            {% if bottom_text %}
+                <div class="article-post__bottom-text">
+                    {{ article.metafields.custom_fields['bottom-text'] }}
+                </div>
+            {% endif %}
+
+            <div class="article-post__additional-info">
+                <h5>
+                    <span>{{ article.metafields.custom_fields['proffesion-title'] }}</span> {{ article.metafields.custom_fields['proffesion-name'] }}
+                </h5>
+                <a href="{{ article.metafields.custom_fields['explore_more_link_url'] }}"
+                   class="article-post__explore-link">{{ article.metafields.custom_fields['explore_more_link_title'] }}</a>
+
+                <div class="article-post__navigation">
+                    {% assign prev_article_title = article.metafields.custom_fields['prev-article-title'] %}
+                    {% assign next_article_title = article.metafields.custom_fields['next-article-title'] %}
+                    {% assign link_blog_title = article.metafields.custom_fields['explore_more_link_title'] %}
+                    {% assign link_blog_url = article.metafields.custom_fields['explore_more_link_url'] %}
+
+                    {% comment %}
+                    {% if prev_article %}
+                        <a class="link" href="{{ prev_article.url }}">{% if prev_article_title %} {{ prev_article_title }} {% else %}Explore more stories{% endif %}  <span
+                                    style="display: none;">{{ prev_article.title | escape }}</span></a>
+                    {% endif %}
+                    {% endcomment %}
+
+                    {% if link_blog_title %}
+                        <a href="{{ link_blog_url }}" class="link">{{ link_blog_title }}</a>
+                    {% else %}
+                        <a href="/blogs/{{ blog.handle }}" class="link">Explore more stories</a>
+                    {% endif %}
+
+                    {% if next_article  %}
+                        <span class="article-post__navigation-divider">/</span>
+                    {% endif %}
+
+                    {% if next_article %}
+                        <a class="link" href="{{ next_article.url }}">{% if next_article_title %}{{ next_article_title }}{% else %}Next Story{% endif %}  <span
+                                    style="display: none;">{{ next_article.title | escape }}</span></a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </article>
+
+
+    </div>
+</div>
+
+
+{% javascript %}
+
+var currentUrlPath = window.location.pathname;
+
+
+var splitUrl = currentUrlPath.split('/');
+
+var sliceUrl = splitUrl.slice(-2);
+var currentArticleUrl = sliceUrl.join('/');
+var $target = '#article-'+currentUrlPath;
+
+var b =  document.getElementById(sliceUrl);
+
+var a = $('article');
+a.each(function(){
+if ($(this).attr('data-handle') ===  currentArticleUrl ) {
+} else {$(this).addClass('hide')}
+});
+
+{% endjavascript %}
+
+
+{% schema %}
+{
+"name": "Articles Posts",
+"class": "articles",
+"blocks": [
+{
+"type": "article-block",
+"name": "Article",
+"settings": [
+{
+"type": "article",
+"id": "article",
+"label": "Set article"
+},
+{
+"type": "text",
+"id": "article_title",
+"label": "Article title"
+},
+{
+"type": "text",
+"id": "article_excerpt",
+"label": "Article excerpt"
+},
+{
+"type": "image_picker",
+"id": "article_img01",
+"label": "Article image01"
+},
+{
+"type": "url",
+"id": "explore_url",
+"label": "Explore link title"
+}
+
+]
+}
+]
+}
+{% endschema %}

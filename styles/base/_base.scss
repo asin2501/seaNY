@@ -1,0 +1,183 @@
+@import "fonts.scss";
+@import "variables";
+@import "typography";
+@import "utils";
+
+.template-page {
+    background-color: #fff;
+}
+
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.minicart-shadow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 9;
+    display: none;
+}
+
+html {
+    overflow-x: hidden;
+
+    &.minicart-opened, &.menu-opened {
+        @include breakpoint(medium) {
+            overflow: hidden;
+            height:100vh;
+            .minicart-shadow {
+                display: block;
+            }
+        }
+    }
+
+    &.filter-opened {
+        @include breakpoint(medium) {
+            .minicart-shadow {
+                display: block;
+            }
+
+            .filter {
+                z-index: 50;
+            }
+        }
+    }
+
+    &.popup-opened {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+
+    &.overflow-hidden {
+        overflow: hidden;
+    }
+}
+
+main {
+    display: block;
+    //flex: 1 0 auto;
+    padding-bottom: 423px;
+    min-height: 100%;
+    box-sizing: border-box;
+
+    @include breakpoint(small) {
+        padding-bottom: 505px;
+    }
+
+}
+
+.shopify-section.footer-container {
+    margin-top: -393px;
+    @include breakpoint(small) {
+        margin-top: -505px;
+    }
+
+    @include breakpoint(extra-small) {
+        margin-top: -450px;
+    }
+}
+
+body {
+    padding-top: 180px;
+
+    &.infobar-opened{
+        padding-top:217px;
+    }
+
+
+    .addthis_button_pinboard {
+        display: none;
+    }
+
+
+
+    @include breakpoint(medium) {
+        padding-top: 130px;
+
+        &.infobar-opened{
+            padding-top:147px;
+        }
+
+        @media (orientation: landscape) {
+            padding-top: 90px;
+            &.infobar-opened{
+                padding-top:112px;
+            }
+        }
+    }
+
+    @include breakpoint(mobile-landscape) {
+        padding-top: 70px;
+        &.infobar-opened{
+            padding-top:100px;
+        }
+    }
+
+}
+
+html {
+    padding-top: 0 !important;
+    //min-height: 100%;
+}
+
+html, body {
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    display: inline-block;
+    line-height: 1;
+    text-decoration: none;
+}
+
+address {
+    font-style: normal;
+}
+
+textarea {
+    padding: 15px;
+    border: 1px solid #4c4849;
+    border-radius: 0px;
+    font-size: 15px;
+    resize: none;
+}
+
+select {
+    border-radius: 0;
+}
+
+blockquote {
+    margin: 0;
+}
+
+cite {
+    font-style: normal;
+}

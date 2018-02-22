@@ -1,0 +1,100 @@
+<div class="stockists__image">
+    <picture>
+        <source srcset="{{ section.settings.stock_image | img_url: '600x' }}" media="(max-width: 600px)">
+        <source srcset="{{ section.settings.stock_image | img_url: '1000x' }}" media="(max-width: 991px)">
+        <img src="{{ section.settings.stock_image | img_url: 'master' }}" alt="">
+    </picture>
+</div>
+<div class="small-container">
+
+    <div class="stockists__country-container">
+        <a id="stockists-back" class="stockists__link-back" href="#">Back to Country List ></a>
+        <ul class="country-list">
+            {% assign country_string = '' %}
+            {% for shop in section.blocks %}
+                {% assign country_string = country_string | append: shop.settings.shop_country | append: ',' %}
+            {% endfor %}
+            {% assign countries_name = country_string | split: ',' | uniq | sort %}
+            {% for country_name in countries_name %}
+                {% assign strip_country_name = country_name | strip %}
+                <li class="country-list__item"><span><a href="#" class="country-list__link" data-country="{{ strip_country_name | downcase }}" >{{ strip_country_name }}</a></span></li>
+            {% endfor %}
+        </ul>
+
+        <div class="stockists__shops-container hide">
+            {% for shop in section.blocks %}
+                {% assign country_name = shop.settings.shop_country %}
+            <div class="stockists__shop" data-country="{{ country_name | downcase | strip }}">
+                <address>
+                    {% if shop.settings.shop_url == blank %}
+                    <h4 class="stockists__shop-title">{{ shop.settings.shop_title }}</h4>
+                        {% else %}
+                            <h4 class="stockists__shop-title"><a href="{{ shop.settings.shop_url }}" target="_blank" >{{ shop.settings.shop_title }}</a></h4>
+                    {% endif %}
+                    <p>{{ shop.settings.shop_street }}</p>
+                    <p>{{ shop.settings.shop_address }}</p>
+                    <p>{{ shop.settings.shop_country }}</p>
+                    <p><a class="stockists__shop-phone" href="tel:{{ shop.settings.shop_phone }}">{{ shop.settings.shop_phone }}</a></p>
+                </address>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+</div>
+
+
+
+{% schema %}
+{
+        "name": "Stockists",
+        "class": "stockists",
+        "settings": [
+
+        {
+            "type": "image_picker",
+            "id": "stock_image",
+            "label": "Stockists image"
+        }
+        ],
+        "blocks": [
+        {
+            "type": "shop",
+            "name": "Shop",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "shop_title",
+                    "label": "Shop title"
+                },
+                {
+                    "type": "text",
+                    "id": "shop_url",
+                    "label": "Shop URL"
+                },
+                {
+                    "type": "text",
+                    "id": "shop_street",
+                    "label": "Street title"
+                },
+                {
+                    "type": "text",
+                    "id": "shop_address",
+                    "label": "Shop address"
+                },
+                {
+                    "type": "text",
+                    "id": "shop_country",
+                    "label": "Shop country"
+                },
+                {
+                    "type": "text",
+                    "id": "shop_phone",
+                    "label": "Shop phone"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

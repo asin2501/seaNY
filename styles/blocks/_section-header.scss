@@ -1,0 +1,116 @@
+.section-header {
+    color: #000;
+
+    * {
+        transform: translateZ(0);
+    }
+
+    .section-header__title {
+        margin-top: 0;
+        margin-bottom: 10px;
+        text-transform: capitalize;
+        font-size: 42px;
+        font-weight: normal;
+    }
+
+    .section-header__subtitle {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-family: $base-font;
+    }
+
+    .section-header__link {
+        font-size: 18px;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: inherit;
+
+        &::after {
+            content: '>';
+            position: relative;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        &:hover {
+            &::after {
+                transform: translateX(0) translateZ(0);
+                animation-name: arrow-moving;
+                animation-duration: 1.5s;
+                animation-iteration-count: infinite;
+            }
+        }
+    }
+
+    &.section-header--white {
+        color: #fff;
+    }
+
+    @include breakpoint(medium) {
+        .section-header__title {
+            font-size: 32px;
+        }
+    }
+
+    @include breakpoint(small) {
+        .section-header__link {
+            &::after {
+                display: none;
+
+            }
+        }
+        &.section-header--white {
+            color: #000;
+        }
+
+        .section-header__subtitle {
+            max-width: 340px;
+        }
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        .section-header__title {
+            font-size: 18px;
+        }
+
+        .section-header__subtitle {
+            max-width: 300px;
+        }
+
+        .section-header__subtitle {
+            font-size: 14px;
+        }
+
+        .section-header__link {
+            font-size: 10px;
+        }
+    }
+
+    @include breakpoint(mobile-landscape) {
+        //.section-header__title {
+        //    font-size: 27px;
+        //}
+        //
+        //.section-header__subtitle {
+        //    max-width: 300px;
+        //}
+        //
+        //.section-header__link, .section-header__subtitle {
+        //    font-size: 16px;
+        //}
+    }
+
+}
+
+@keyframes arrow-moving {
+    0% {
+        transform: translateX(0px) translateZ(0);
+    }
+    50% {
+        transform: translateX(6px) translateZ(0);;
+    }
+    100% {
+        transform: translateX(0px) translateZ(0);;
+    }
+}

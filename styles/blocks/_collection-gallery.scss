@@ -1,0 +1,94 @@
+.collection-gallery {
+    overflow: hidden;
+    width: auto;
+    margin-right: 180px;
+    margin-left: 180px;
+    padding-bottom: 50px;
+
+    .collection-gallery__wrapper {
+        overflow: hidden;
+    }
+
+    .collection-gallery__item--inner {
+        cursor: pointer;
+    }
+
+    .collection-gallery__header {
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .collection-gallery__row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -12px;
+        margin-left: -12px;
+    }
+
+    .collection-gallery__item {
+        width: 33.33%;
+        padding: 12px;
+        img {
+            display: block;
+        }
+    }
+
+    .collection-gallery__title {
+        margin-bottom: 30px;
+    }
+
+    .collection-gallery__link {
+        @extend .link;
+    }
+
+    @include breakpoint(large) {
+        margin-right: 120px;
+        margin-left: 120px;
+        //.collection-gallery__item {
+        //    width: 25%;
+        //}
+    }
+
+    @include breakpoint(medium) {
+        padding-top: 45px;
+        margin-right: 40px;
+        margin-left: 40px;
+    }
+
+    @include breakpoint(small) {
+        margin-right: 0;
+        margin-left: 0;
+        padding-bottom: 0;
+        .collection-gallery__row {
+            margin-right: -5px;
+            margin-left: -5px;
+        }
+
+        .collection-gallery__item {
+            width: 50%;
+            padding: 5px;
+        }
+
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+
+        padding-top: 25px;
+        .collection-gallery__header {
+            margin-bottom: 20px;
+        }
+        .collection-gallery__title {
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        .collection-gallery__row {
+            margin-right: -2px;
+            margin-left: -2px;
+        }
+
+        .collection-gallery__item {
+            padding: 2px;
+        }
+    }
+}

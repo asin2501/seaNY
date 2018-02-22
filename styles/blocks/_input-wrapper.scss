@@ -1,0 +1,40 @@
+.input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    + .button {
+        margin-top: 30px;
+    }
+
+    input[type="checkbox"] {
+        display: none;
+        + label {
+            position: relative;
+            padding-left: 25px;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 18px;
+                height: 18px;
+                border: 1px solid #000;
+                font-size: 13px;
+                transform: translateY(-50%);
+            }
+        }
+
+        &:checked {
+            + label {
+                &::before {
+                    content: "";
+                    background-image: url(icon-checked.png);
+                    background-repeat: no-repeat;
+                    background-position: center center;
+
+                }
+            }
+        }
+    }
+}

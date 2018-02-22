@@ -1,0 +1,60 @@
+<section class="collection-banner small-container">
+    <div class="collection-banner__inner-wrapper">
+        <div class="collection-banner__content section-header section-header--white">
+            <h2 class="section-header__title">{{ section.settings.title }}</h2>
+            <h6 class="section-header__subtitle">{{ section.settings.subtitle }}</h6>
+            <a class="section-header__link" href="{{ section.settings.link_url }}">{{ section.settings.link_name }}</a>
+        </div>
+        <picture class="collection-banner__large-image">
+            <source srcset="{{ section.settings.main_image | img_url:'640x' }}"
+                    media="(max-width: 379px) and (min-width: 300px)">
+            <source srcset="{{ section.settings.main_image | img_url:'800x' }}"
+                    media="(max-width: 479px) and (min-width: 380px)">
+            <source srcset="{{ section.settings.main_image | img_url:'1200x' }}"
+                    media="(max-width: 650px) and (min-width: 480px)">
+            <img src="{{ section.settings.main_image | img_url:'1600x' }}" alt="">
+        </picture>
+    </div>
+</section>
+
+{% schema %}
+{
+"name": "Collection Banner",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": "Title",
+"default":"The collections"
+},
+{
+"type": "text",
+"id": "subtitle",
+"label": "Subtitle",
+"default":"Discover Resort 2018"
+},
+{
+"type": "text",
+"id": "link_name",
+"label": "Link name",
+"default":"see more"
+},
+{
+"type": "url",
+"id": "link_url",
+"label": "Link url"
+},
+{
+"type": "image_picker",
+"id": "main_image",
+"label": "Image"
+}
+],
+"presets": [
+{
+"name": "Collection Banner",
+"category": "Special sections"
+}
+]
+}
+{% endschema %}

@@ -1,0 +1,71 @@
+<section class="calm-down-banner small-container">
+    <div class="calm-down-banner__inner-wrapper">
+        <div class="calm-down-banner__item">
+
+            <img src="{{ section.settings.img1 | img_url:'master' }}" alt="">
+        </div>
+        <div class="calm-down-banner__item">
+            <div class="calm-down-banner__content section-header section-header--white">
+                <h2 class="section-header__title">{{ section.settings.title }}</h2>
+                <h6 class="section-header__subtitle">{{ section.settings.subtitle }}</h6>
+                <a class="section-header__link"
+                   href="{{ section.settings.link_url }}">{{ section.settings.link_name }}</a>
+            </div>
+            <img src="{{ section.settings.img2 | img_url:'master' }}" alt="">
+        </div>
+        <div class="calm-down-banner__item">
+            <img src="{{ section.settings.img3 | img_url:'master' }}" alt="">
+        </div>
+    </div>
+</section>
+
+
+{% schema %}
+{
+"name": "Calm Down Banner",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": "Title",
+"default":"The calm down"
+},
+{
+"type": "text",
+"id": "subtitle",
+"label": "Subtitle",
+"default":"Beautifully reimagined essentials"
+},
+{
+"type": "text",
+"id": "link_name",
+"label": "Link name",
+"default":"SHOP THE STORY"
+},
+{
+"type": "url",
+"id": "link_url",
+"label": "Link url"
+},
+{
+"type": "image_picker",
+"id": "img1",
+"label": "Left Image"
+},{
+"type": "image_picker",
+"id": "img2",
+"label": "Central Image"
+},{
+"type": "image_picker",
+"id": "img3",
+"label": "Right Image"
+}
+],
+"presets": [
+{
+"name": "Calm Down Banner",
+"category": "Special sections"
+}
+]
+}
+{% endschema %}

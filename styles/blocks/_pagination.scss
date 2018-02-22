@@ -1,0 +1,17 @@
+.pagination {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid #4c4849;
+    font-size: 18px;
+    text-align: center;
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    @include breakpoint(small) {
+        margin-top: 0;
+        padding-top:0;
+        border-top: none;
+    }
+}

@@ -1,0 +1,33 @@
+.social-icons-menu {
+    list-style-type: none;
+    line-height: 1;
+
+    .social-icons-menu__item {
+        display: block;
+
+        + .social-icons-menu__item {
+            margin-top: 13px;
+        }
+    }
+
+    .social-icons-menu__link {
+        display: inline-block;
+        @extend .link;
+
+        svg {
+            width: 11px;
+            height:11px;
+        }
+
+        span {
+            display: inline-block;
+            margin-left: 3px;
+            font-size: 16px;
+            letter-spacing: 0.6px;
+        }
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

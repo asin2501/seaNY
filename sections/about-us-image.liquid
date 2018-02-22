@@ -1,0 +1,17 @@
+{% if section.settings.image %}
+    <div class="article-post__head-img">
+        <img src="{{ section.settings.image | img_url:'1600x' }}" alt="">
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "about image",
+    "settings":[
+    {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image for about page"
+    }]
+}
+{% endschema %}

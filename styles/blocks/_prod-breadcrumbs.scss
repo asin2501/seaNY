@@ -1,0 +1,11 @@
+.prod-breadcrumbs{
+    color: $border-color;
+    opacity: 0.6;
+    margin-bottom:30px;
+    line-height:1;
+    font-size: 17px;
+
+    @include breakpoint(medium){
+        display: none;
+    }
+}

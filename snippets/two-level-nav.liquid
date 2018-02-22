@@ -1,0 +1,29 @@
+<ul class="two-level-nav">
+    {% for link in linklist.links %}
+        {% assign child_list_handle = link.title | handle %}
+        {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+
+            {% assign is_active_child = false%}
+            {% for child_link in linklists[child_list_handle].links %}
+                {% if child_link.active %}
+                    {% assign is_active_child = true%}
+                {% endif %}
+            {% endfor %}
+
+            <li class="two-level-nav__item two-level-nav__item--hasdropdown {% if link.active or is_active_child %}two-level-nav__item--current{% endif %}">
+                {{ link.title | link_to: link.url }}
+                <ul class="two-level-nav__submenu">
+                    {% for child_link in linklists[child_list_handle].links %}
+                        <li class="two-level-nav__submenu-item {% if child_link.active %}two-level-nav__submenu-item--current{% endif %}">
+                            {{ child_link.title | link_to: child_link.url }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% else %}
+            <li class="two-level-nav__item {% if link.active %}two-level-nav__item--current{% endif %}">
+                {{ link.title | link_to: link.url }}
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>

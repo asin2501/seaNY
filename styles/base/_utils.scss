@@ -1,0 +1,62 @@
+.big-container {
+    width: auto;
+    margin-right: 55px;
+    margin-left: 55px;
+
+    &--border-top {
+        border-top: 1px solid #4c4849;
+    }
+    @include breakpoint(medium) {
+        margin-right: 40px;
+        margin-left: 40px;
+    }
+
+    @include breakpoint(small-tablet-portrait) {
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+}
+
+.small-container {
+    width: auto;
+    margin-right: 280px;
+    margin-left: 280px;
+
+    @include breakpoint(large) {
+        margin-right: 120px;
+        margin-left: 120px;
+
+    }
+
+    @include breakpoint(medium) {
+        margin-right: 40px;
+        margin-left: 40px;
+    }
+    @include breakpoint(small-tablet-portrait) {
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.errors {
+    margin: 10px 0;
+    font-weight: bold;
+    color: red;
+    ul {
+        list-style-type: none;
+    }
+}
+
+.form-success {
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+
+.text-center {
+    text-align: center;
+}

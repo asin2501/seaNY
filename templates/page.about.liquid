@@ -1,0 +1,21 @@
+<div class="blog blog--article about-page">
+    <div class="small-container">
+        <section  class="article-post article-post--stories2">
+            <div class="article-post__heading">
+                {% comment %}<h1 class="article-post__heading-title">{{ page.title }}</h1>{% endcomment %}
+            </div>
+
+
+            {% section 'about-us-image' %}
+
+            {% if page.content %}
+                <div class="article-post__about-us">
+                    {{ page.content }}
+                </div>
+            {% endif %}
+
+        </section>
+    </div>
+</div>
+
+

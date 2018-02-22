@@ -1,0 +1,28 @@
+<div class="small-container">
+    <h1 class="client-care__page-title">{{ page.title }}</h1>
+    <h2 class="client-care__main-title">{{ section.settings.main_title }}</h2>
+    {%- assign client_care_linklist = section.settings.client_care_menu -%}
+    {% if linklists[client_care_linklist].links.size > 0 %}
+        {% include 'simple-nav', custom_link_list: client_care_linklist, menu_class: 'client-menu', menu_item_class: 'client-menu__item' %}
+    {% endif %}
+</div>
+
+
+{% schema %}
+{
+    "name": "Client Care",
+    "class": "client-care",
+    "settings": [
+        {
+            "type": "text",
+            "id": "main_title",
+            "label": "Main title"
+        },
+        {
+            "type": "link_list",
+            "id": "client_care_menu",
+            "label": "Top menu"
+        }
+    ]
+}
+{% endschema %}

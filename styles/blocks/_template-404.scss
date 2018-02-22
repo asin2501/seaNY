@@ -1,0 +1,24 @@
+.template-404 {
+    main {
+        margin-top: 80px;
+    }
+
+    h1 {
+        margin: 25px 0;
+    }
+
+    .template-404__text {
+        a {
+            @extend .link;
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+
+    @include breakpoint(extra-small) {
+        main {
+            margin-top: 100px;
+        }
+    }
+}

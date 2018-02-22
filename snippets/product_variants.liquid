@@ -1,0 +1,126 @@
+{% assign variant_length = the_product.variants | size %}
+{% assign option_length = the_product.options_with_values | size %}
+
+
+{% if variant_length > 1 and option_length > 1 %}
+    {% for color in the_product.options_with_values[1].values %}
+        {% assign colorImage1 = false %}
+        {% assign colorImage2 = false %}
+
+
+
+        {% assign color_downcase = color | downcase %}
+
+        {% for image in the_product.images %}
+            {% assign image_alt_downcase = image.alt | downcase %}
+
+            {% if image_alt_downcase contains color_downcase %}
+
+                {% if colorImage1 == false %}
+                    {% assign colorImage1 = image %}
+                {% else %}
+                    {% assign colorImage2 = image %}
+                {% endif %}
+            {% endif %}
+            {% if colorImage1 and colorImage2 %}
+                {% break %}
+            {% endif %}
+        {% endfor %}
+
+        {% if colorImage1==false or colorImage2==false %}
+            {% for variant in the_product.variants %}
+                {% assign option_name_downcase = variant.option2 | downcase %}
+                {% if color_downcase == option_name_downcase and variant.featured_image %}
+                    {% if colorImage1 == false %}
+                        {% assign colorImage1 = variant.featured_image %}
+                    {% else %}
+                        {% assign colorImage2 = variant.featured_image %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+
+
+        <div class="product-card {% if modificator %}product-card--{{ modificator }}{% endif %}">
+            <a class="product-card__link" href="{{ the_product.url | within: collection }} "></a>
+            <div class="product-card__inner">
+                <div class="product-card__image-wrapper">
+                    {% if the_product.images.size > 1 %}
+                        {% if colorImage1 %}
+                            <img class="product-card__image" src="{{ colorImage1 | img_url: 'master' }}" alt="{{ colorImagae1.alt | escape }}">
+                        {% else %}
+                            <img class="product-card__alt" src="{{ the_product.featured_image | img_url: 'master' }}" alt="{{ the_product.featured_image.alt | escape }}">
+                        {% endif %}
+
+                        {% if colorImage2 %}
+                            <img class="product-card__alt-image" src="{{ colorImage2 | img_url: 'master' }}" alt="{{ colorImage2.alt | escape }}">
+                        {% else %}
+                            <img class="product-card__alt-image" src="{{ the_product.images[1] | img_url: 'master' }}" alt="{{ the_product.images[1].alt | escape }}">
+                        {% endif %}
+                    {% else %}
+                        <img class="product-item__image" src="{{ the_product.featured_image.src | img_url: 'master' }}" alt="{{ the_product.featured_image.alt }}">
+                    {% endif %}
+                </div>
+                <div class="product-card__options">
+                    <div class="product-card__sizes">
+                        {% if the_product.variants %}
+                            {% for size in the_product.variants %}
+                                {% assign quantity = size.inventory_quantity %}
+                                {% if size.option2 == color %}
+                                {% if quantity > 0  %}
+                                    <span class="product-card__size" data-variant-id="{{ size.id }}">{{ size.option1 }}</span>
+                                {% else %}
+                                    <span class="product-card__size product-card__size--out"
+                                          data-variant-id="{{ size.id }}">{{ size.option1 }}</span>
+                                {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <a href="{{ the_product.url }}" class="button">View Details</a>
+                    <button type="submit" class="button js-add-to-card" class="btn"
+                            data-variant-id="{{ the_product.selected_or_first_available_variant.id }}">{{ 'products.product.add_to_cart' | t }}</button>
+                </div>
+            </div>
+
+            <div class="product-card__footer">
+        <span class="product-card__title">
+            <a href="{{ the_product.url | within: collection }}">{{ the_product.title }} {{ color }}
+                <span class="product-card__title-divider">&mdash;</span></a></span>
+
+                <span class="product-card__price">
+                            {% if the_product.compare_at_price > the_product.price %}
+                                <span class="product-card__price-regular"><s>{{ the_product.compare_at_price | money }}</s></span>
+                            {% endif %}
+
+                    {% if the_product.compare_at_price > the_product.price %}
+                        {% if the_product.price_varies %}
+                            {%- assign sale_price = the_product.price | money -%}
+                            <span class="product-card__price-sale">{{ 'products.product.on_sale_from_html' | t: price: sale_price }}</span>
+                                {% else %}
+                            <span class="product-card__price-sale">{{ the_product.price | money }}</span>
+                        {% endif %}
+
+                            {% else %}
+                        {% if the_product.price_varies %}
+                            {%- assign price = the_product.price | money -%}
+                            <span class="product-card__price-normal">{{ 'products.product.from_text_html' | t: price: price }}</span>
+                                {% else %}
+                            <span>{{ the_product.price | money }}</span>
+                        {% endif %}
+                    {% endif %}
+
+                    {% unless the_product.available %}
+                    <span class="product-card__price-sold">{{ 'products.product.sold_out' | t }}</span>
+                    {% endunless %}
+                        </span>
+            </div>
+        </div>
+    {% endfor %}
+
+{% else %}
+
+    {% include 'product', the_product: product %}
+
+{% endif %}

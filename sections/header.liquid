@@ -1,0 +1,110 @@
+<div class="header__skinny-header header__skinny-header--opened">
+    <span class="header__skinny-header-close">&#10005;</span>
+    <p class="header__skinny-header-text">{{ section.settings.header_info }}</p>
+    <p class="header__skinny-header-text--mobile">{{ section.settings.header_info_mobile }}</p>
+</div>
+<header class="big-container">
+    <div class="header__inner-wrapper">
+        {% include 'mobile-menu-icon' %}
+
+        <nav  class="header-nav">
+            {% include 'two-level-nav', linklist: linklists[section.settings.main_linklist], %}
+        </nav>
+
+        <div class="header__logo-block">
+            <a href="/" itemprop="url" class="header__logo">
+                {% include 'logo' %}
+            </a>
+            {% comment %}
+            ---------------------------------------- comment
+                {% if section.settings.svg_logo %}
+                    <a href="/" itemprop="url" class="header__logo">
+                        {% include 'logo' %}
+                    </a>
+                {% else %}
+                    {% if section.settings.logo %}
+                        <a href="/" itemprop="url" class="header__logo">
+                            <img src="{{ section.settings.logo | img_url:'220x' }}"
+                                 class="header__logo-image"
+                                 alt="{{ shop.name }}"
+                                 itemprop="logo">
+                        </a>
+                    {% else %}
+                        <a class="header__logo-link" href="/" itemprop="url">{{ shop.name }}</a>
+                    {% endif %}
+                {% endif %}
+            ---------------------------------------- comment
+            {% endcomment %}
+        </div>
+        <div class="header__side-block">
+            <ul class="nav user-nav">
+                {% if customer %}
+                    <li class="nav__item">
+                        <a class="nav__link" href="/account">
+                            {{ 'layout.customer.account' | t }}
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        {{ 'layout.customer.log_out' | t | customer_logout_link }}
+                    </li>
+                {% else %}
+                    <li class="nav__item js-login">
+                        {{ 'layout.customer.log_in' | t | customer_login_link }}
+                    </li>
+                    <li class="nav__item js-register">
+                        {{ 'layout.customer.create_account' | t | customer_register_link }}
+                    </li>
+                {% endif %}
+
+            </ul>
+
+            <form action="/search" method="get" role="search" class="header-search">
+                <div class="header-search__input-wrapper">
+                    <input class="header-search__input" type="text" name="q" id="Search" value=""
+                           placeholder="{{ 'general.search.placeholder' | t }}">
+                    <span class="header-search-mobile__close">&#x2716;</span>
+                </div>
+                <input type="submit" style="display: none">
+                <button id="search-button" class="header-search__button">
+                    {% include 'search-icon' %}
+                </button>
+            </form>
+
+            <a href="#" class="header__cart-link" id="toggle-cart">
+                <span class="header__cart-text" id="cart-qty">{{ cart.item_count }}</span>
+                {% include 'cart-icon' %}
+            </a>
+        </div>
+    </div>
+    {% include 'mobile-menu', linklist: linklists[section.settings.mobile_link_list], %}
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "header",
+  "settings": [{
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": "Menu",
+      "default": "main-menu"
+    },{
+        "type": "link_list",
+        "id": "mobile_link_list",
+        "label": "Mobile menu",
+        "default": "main-menu"
+    },
+    {
+        "type": "text",
+        "id": "header_info",
+        "label": "Header info-bar text",
+        "default": "Free Ground, Flat Rate International, Same Day Delivery NYC"
+    },{
+        "type": "text",
+        "id": "header_info_mobile",
+        "label": "Header info-bar text for mobile",
+        "default": "Free Ground, Flat Rate International, Same Day Delivery NYC"
+    }
+  ]
+}
+{% endschema %}

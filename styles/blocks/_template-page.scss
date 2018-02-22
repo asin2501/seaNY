@@ -1,0 +1,28 @@
+.template-page .template-page-single {
+
+    main {
+        margin-bottom: 80px;
+    }
+
+    h1,h2,h3,h4,h5,h6 {
+        + * {
+            margin-top: 25px;
+        }
+    }
+
+    p + * {
+        margin-top: 15px;
+    }
+
+    ul {
+        margin: 20px 0;
+        padding-left: 40px;
+        list-style-type: disc;
+    }
+
+    @include breakpoint(medium) {
+        main {
+            margin-top: 45px;
+        }
+    }
+}

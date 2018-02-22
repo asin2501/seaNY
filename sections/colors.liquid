@@ -1,0 +1,43 @@
+<style>
+    {% for color in section.blocks %}
+        {% if color.settings.color_name != '' %}
+            .bg-color-{{ color.settings.color_name | handleize }}{
+                {% if color.settings.image %}
+                    background-image: url({{ color.settings.image  | img_url: '80x' }})!important;
+                {% else %}
+                    background-color: {{ color.settings.color }}!important;
+                {% endif %}
+            }
+        {% endif %}
+    {% endfor %}
+</style>
+
+{% schema %}
+{
+    "name": "Colors",
+    "class": "colors",
+    "blocks": [
+        {
+            "type": "color",
+            "name": "Color",
+            "settings":[
+                {
+                    "type": "text",
+                    "id": "color_name",
+                    "label": "Color name"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Color picture"
+                },
+                {
+                    "type": "color",
+                    "id": "color",
+                    "label": "Colo RGB value"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,22 @@
+.cart {
+    max-width: 720px;
+    padding-bottom: 50px;
+    margin: 0 auto;
+
+    @include breakpoint(medium) {
+        padding-top: 30px;
+
+        .cart__title {
+            margin-bottom: 0;
+        }
+        h3 {
+            font-size: 30px;
+        }
+    }
+
+    @include breakpoint(mobile-landscape) {
+        h3 {
+            font-size: 24px;
+        }
+    }
+}

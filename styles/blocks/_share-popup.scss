@@ -1,0 +1,44 @@
+.share-popup{
+    position: fixed;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    z-index:150;
+
+    background-color: rgba(#fff, 0.9);
+    display: none;
+    
+    .share-popup__container{
+        position: absolute;
+        left:50%;
+        top: 50%;
+        width: 285px;
+        //max-width:300px;
+        padding-right:20px;
+        padding-left:20px;
+        padding-top:60px;
+        padding-bottom:20px;
+        border: 1px solid $border-color;
+        background-color: #fff;
+        transform: translateX(-50%) translateY(-50%) translateZ(0);
+    }
+
+    .share-popup__close{
+        position: absolute;
+        background-color: transparent;
+        right:15px;
+        top: 10px;
+        border: none;
+        font-size:20px;
+        cursor: pointer;
+
+    }
+
+    .addthis_toolbox{
+        .at-icon-wrapper{
+            background-color: #000!important;
+        }
+    }
+
+}

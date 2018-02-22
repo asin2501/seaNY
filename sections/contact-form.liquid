@@ -1,0 +1,153 @@
+<div class="contact-form">
+    {% for block in  section.blocks %}
+        <address class="contact-form__address">
+            {% if block.settings.address_title != blank %}
+                <h3 class="contact-form__title">{{ block.settings.address_title }}</h3>
+            {% endif %}
+            {% if block.settings.line_1 != '' %}
+                <p>{{ block.settings.line_1 }}</p>
+            {% endif %}
+            {% if block.settings.line_2 != '' %}
+                <p>{{ block.settings.line_2 }}</p>
+            {% endif %}
+            {% if block.settings.line_3 != '' %}
+                <p>{{ block.settings.line_3 }}</p>
+            {% endif %}
+            {% if block.settings.line_4 != '' %}
+                <p>{{ block.settings.line_4 }}</p>
+            {% endif %}
+            {% if block.settings.line_5 != '' %}
+                <p>{{ block.settings.line_5 }}</p>
+            {% endif %}
+            {% if block.settings.phone != '' %}
+                <p>+<a href="tel:{{ block.settings.phone }}">{{ block.settings.phone }}</a></p>
+            {% endif %}
+            {% if block.settings.email_name != '' %}
+                <a class="contact-form__link" href="mailto:{{ block.settings.email_name }}">{{ block.settings.email_name }}</a>
+            {% endif %}
+        </address>
+    {% endfor %}
+
+    {% form 'contact' %}
+
+    {% if section.settings.form_title != blank %}
+        <h3 class="contact-form__title text-center">{{ section.settings.form_title }}</h3>
+    {% endif %}
+
+    {% if form.posted_successfully? %}
+        <p class="form-success">
+            {{ 'contact.form.post_success' | t }}
+        </p>
+    {% endif %}
+
+    {{ form.errors | default_errors }}
+
+    <div class="input-wrapper">
+        <input type="text"
+               name="contact[name]"
+               id="ContactFormName"
+               placeholder="{{ 'contact.form.name' | t }}"
+               value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+    </div>
+
+
+    <div class="input-wrapper">
+        <input type="email"
+               name="contact[email]"
+               id="ContactFormEmail"
+               placeholder="{{ 'contact.form.email' | t }}"
+               value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+               spellcheck="false"
+               autocomplete="off"
+               autocapitalize="off">
+    </div>
+
+    <div class="input-wrapper">
+        <input type="tel"
+               name="contact[phone]"
+               id="ContactFormPhone"
+               placeholder="{{ 'contact.form.phone' | t }}"
+               value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+               pattern="[0-9\-]*">
+    </div>
+
+
+    <label class="contact-form__textarea-label" for="ContactFormMessage">{{ 'contact.form.message' | t }}</label>
+    <textarea rows="10"
+              name="contact[body]"
+              id="ContactFormMessage"></textarea>
+
+
+    <input type="submit" class="button" value="{{ 'contact.form.send' | t }}">
+
+    {% endform %}
+</div>
+
+{% schema %}
+{
+    "name": "Contact form address",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Form"
+        },
+        {
+        "type": "text",
+        "id": "form_title",
+        "label": "Form title",
+        "default": "Customer Service"
+        }
+    ],
+    "blocks":[{
+        "type": "address",
+        "name": "Address",
+        "settings": [{
+                "type": "text",
+                "id": "address_title",
+                "label": "Addresses title",
+                "default": "Sales"
+            },
+            {
+                "type": "text",
+                "id": "line_1",
+                "label": "Line 1",
+                "default": "Sea, New York, Inc"
+            },
+            {
+                "type": "text",
+                "id": "line_2",
+                "label": "Line 2",
+                "default": "324 Canal Street"
+            },
+            {
+                "type": "text",
+                "id": "line_3",
+                "label": "Line 3",
+                "default": "Floor 5"
+            },
+            {
+                "type": "text",
+                "id": "line_4",
+                "label": "Line 4",
+                "default": "New York, NY 10013"
+            },
+            {
+                "type": "text",
+                "id": "line_5",
+                "label": "Line 5",
+                "default": "United States of America"
+            },{
+                "type": "text",
+                "id": "phone",
+                "label": "Phone"
+            },
+            {
+                "type": "text",
+                "id": "email_name",
+                "label": "Email",
+                "default": "info@sea-ny.com"
+            }
+        ]
+    }]
+}
+{% endschema %}
